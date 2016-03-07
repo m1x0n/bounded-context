@@ -1,8 +1,9 @@
 <?php namespace BoundedContext\Contracts\Command;
 
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Core\Identifiable;
+use BoundedContext\Contracts\ValueObject\ValueObject;
 
-interface Command extends Event
+interface Command extends Identifiable, ValueObject
 {
 
 }

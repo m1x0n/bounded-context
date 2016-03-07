@@ -9,7 +9,8 @@ class Builder implements \BoundedContext\Contracts\Sourced\Aggregate\Stream\Buil
 {
     private $stream_factory;
 
-    private $id;
+    private $aggregate_id;
+    private $aggregate_type_id;
     private $version;
     private $limit;
     private $chunk_size;
@@ -21,7 +22,7 @@ class Builder implements \BoundedContext\Contracts\Sourced\Aggregate\Stream\Buil
     {
         $this->stream_factory = $stream_factory;
 
-        $this->id = $generator->null();
+        $this->aggregate_id = $generator->null();
         $this->version = new Integer_();
         $this->limit = new Integer_(1000);
         $this->chunk_size = new Integer_(1000);
@@ -34,13 +35,14 @@ class Builder implements \BoundedContext\Contracts\Sourced\Aggregate\Stream\Buil
         return $this;
     }
 
-    public function with(Identifier $id)
+    public function with(Identifier $aggregate_type_id, Identifier $aggregate_id)
     {
-        $this->id = $id;
+        $this->aggregate_type_id = $aggregate_type_id;
+        $this->aggregate_id = $aggregate_id;
 
         return $this;
     }
-
+  
     public function limit(Integer_ $limit)
     {
         $this->limit = $limit;
@@ -51,14 +53,14 @@ class Builder implements \BoundedContext\Contracts\Sourced\Aggregate\Stream\Buil
     public function chunk(Integer_ $size)
     {
         $this->chunk_size = $size;
-
         return $this;
     }
 
     public function stream()
     {
         return $this->stream_factory->create(
-            $this->id,
+            $this->aggregate_id,
+            $this->aggregate_type_id,
             $this->version,
             $this->limit,
             $this->chunk_size

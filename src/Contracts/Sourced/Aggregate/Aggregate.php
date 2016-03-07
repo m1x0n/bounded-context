@@ -11,7 +11,6 @@ interface Aggregate extends Handler
      *
      * @return Collection
      */
-
     public function changes();
 
     /**
@@ -19,7 +18,6 @@ interface Aggregate extends Handler
      *
      * @return void
      */
-
     public function flush();
 
     /**
@@ -27,6 +25,5 @@ interface Aggregate extends Handler
      *
      * @return State
      */
-
     public function state();
 }

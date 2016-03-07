@@ -10,6 +10,5 @@ interface Factory
      * @param State $state
      * @return Aggregate
      */
-
     public function state(State $state);
 }

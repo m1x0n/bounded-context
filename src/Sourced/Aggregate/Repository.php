@@ -7,6 +7,7 @@ use BoundedContext\Contracts\Sourced\Log\Log as EventLog;
 
 use BoundedContext\Contracts\Sourced\Aggregate\Aggregate;
 use BoundedContext\Contracts\Sourced\Aggregate\Factory as AggregateFactory;
+use BoundedContext\Contracts\Sourced\Aggregate\TypeId\Factory as AggregateTypeIdFactory; 
 
 use BoundedContext\Contracts\Sourced\Aggregate\Stream\Builder as AggregateStreamBuilder;
 
@@ -21,6 +22,7 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
     private $state_factory;
 
     private $aggregate_factory;
+    private $aggregate_type_id_factory;
     private $aggregate_stream_builder;
 
     private $event_factory;
@@ -31,6 +33,7 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
         StateSnapshotFactory $state_snapshot_factory,
         StateFactory $state_factory,
         AggregateFactory $aggregate_factory,
+        AggregateTypeIdFactory $aggregate_type_id_factory,
         AggregateStreamBuilder $aggregate_stream_builder,
         EventFactory $event_factory,
         EventLog $event_log
@@ -41,6 +44,7 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
         $this->state_factory = $state_factory;
 
         $this->aggregate_factory = $aggregate_factory;
+        $this->aggregate_type_id_factory = $aggregate_type_id_factory;
 
         $this->aggregate_stream_builder = $aggregate_stream_builder;
 
@@ -53,14 +57,16 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
         $state = $this->state_factory
             ->with($command)
             ->snapshot(
-                $this->state_snapshot_repository->id(
-                    $command->id()
+                $this->state_snapshot_repository->ids(
+                    $command->id(),
+                    $this->aggregate_type_id_factory->command($command)
                 )
             )
         ;
 
         $event_stream = $this->aggregate_stream_builder
-            ->with($state->id())
+            ->with($state->aggregate_id())
+            ->with($state->aggregate_type_id())
             ->after($state->version())
             ->stream();
 

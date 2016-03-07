@@ -10,7 +10,6 @@ interface Repository {
      * @param Command $command
      * @return Aggregate
      */
-
     public function by(Command $command);
 
     /**
@@ -19,6 +18,5 @@ interface Repository {
      * @param Aggregate $aggregate
      * @return void
      */
-
     public function save(Aggregate $aggregate);
 }

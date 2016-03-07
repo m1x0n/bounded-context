@@ -1,13 +1,23 @@
 <?php namespace BoundedContext\Contracts\Sourced\Aggregate\State;
 
-use BoundedContext\Contracts\Core\Identifiable;
+use BoundedContext\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Core\Serializable;
 use BoundedContext\Contracts\Core\Versionable;
 use BoundedContext\Contracts\Event\Event;
 use BoundedContext\Contracts\Projection\Queryable;
 
-interface State extends Identifiable, Versionable, Serializable
+interface State extends Versionable, Serializable
 {
+    /**
+     * @return Identifier
+     */
+    public function aggregate_id();
+    
+    /**
+     * @return Identifier
+     */
+    public function aggregate_type_id();
+    
     /**
      * @return Queryable
      */
