@@ -11,7 +11,6 @@ interface Snapshot extends SnapshotContract
      *
      * @return Identifier
      */
-
     public function type_id();
 
     /**
@@ -19,6 +18,5 @@ interface Snapshot extends SnapshotContract
      *
      * @return Schema
      */
-
     public function schema();
 }

@@ -1,9 +1,9 @@
 <?php namespace BoundedContext\Contracts\Event;
 
-use BoundedContext\Contracts\Core\Identifiable;
-use BoundedContext\Contracts\ValueObject\ValueObject;
+use BoundedContext\Contracts\Core\Loggable;
+use BoundedContext\Contracts\ValueObject\Identifier;
 
-interface Event extends Identifiable, ValueObject
+interface Event extends Loggable
 {
-
+    
 }

@@ -8,7 +8,7 @@ interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
     /**
      * @return Identifier
      */
-    public function agggregate_id();
+    public function aggregate_id();
     
     /**
      * @return Identifier

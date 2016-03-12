@@ -8,6 +8,7 @@ use BoundedContext\ValueObject\Integer as Integer_;
 
 class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Event\Snapshot\Snapshot
 {
+    protected $id;
     protected $type_id;
     protected $event;
 
@@ -19,10 +20,15 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Eve
         Schema $event
     )
     {
-        parent::__construct($id, $version, $occurred_at);
-
+        parent::__construct($version, $occurred_at);
+        $this->id = $id;
         $this->type_id = $type_id;
         $this->event = $event;
+    }
+    
+    public function id()
+    {
+        return $this->id;
     }
 
     public function type_id()

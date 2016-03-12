@@ -8,7 +8,6 @@ use BoundedContext\Contracts\Sourced\Log\Log as EventLog;
 use BoundedContext\Contracts\Sourced\Aggregate\Aggregate;
 use BoundedContext\Contracts\Sourced\Aggregate\Factory as AggregateFactory;
 use BoundedContext\Contracts\Sourced\Aggregate\TypeId\Factory as AggregateTypeIdFactory; 
-
 use BoundedContext\Contracts\Sourced\Aggregate\Stream\Builder as AggregateStreamBuilder;
 
 use BoundedContext\Contracts\Sourced\Aggregate\State\Factory as StateFactory;
@@ -56,17 +55,10 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
     {
         $state = $this->state_factory
             ->with($command)
-            ->snapshot(
-                $this->state_snapshot_repository->ids(
-                    $command->id(),
-                    $this->aggregate_type_id_factory->command($command)
-                )
-            )
-        ;
+            ->snapshot( $this->snapshot($command) );
 
         $event_stream = $this->aggregate_stream_builder
-            ->with($state->aggregate_id())
-            ->with($state->aggregate_type_id())
+            ->ids($state->aggregate_id(), $state->aggregate_type_id())
             ->after($state->version())
             ->stream();
 
@@ -78,6 +70,14 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
         }
 
         return $this->aggregate_factory->state($state);
+    }
+    
+    private function snapshot(Command $command)
+    {
+        return $this->state_snapshot_repository->ids(
+            $command->id(),
+            $this->aggregate_type_id_factory->command($command)
+        );
     }
 
     public function save(Aggregate $aggregate)

@@ -9,6 +9,7 @@ use BoundedContext\ValueObject\Integer as Version;
 
 class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Player\Snapshot\Snapshot
 {
+    public $id;
     public $last_id;
 
     public function __construct(
@@ -18,8 +19,8 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
         Identifier $last_id
     )
     {
-        parent::__construct($id, $version, $occurred_at);
-
+        parent::__construct($version, $occurred_at);
+        $this->id = $id;
         $this->last_id = $last_id;
     }
 
@@ -66,4 +67,10 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
             $next_id
         );
     }
+
+    public function id()
+    {
+        return $this->id;
+    }
+
 }

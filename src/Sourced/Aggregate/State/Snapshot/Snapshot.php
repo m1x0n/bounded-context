@@ -11,15 +11,27 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Sou
     protected $schema;
 
     public function __construct(
-        Identifier $id,
+        Identifier $aggregate_id,
+        Identifier $aggregate_type_id,
         Version $version,
         DateTime $occurred_at,
         Schema $schema
     )
     {
-        parent::__construct($id, $version, $occurred_at);
-
+        parent::__construct($version, $occurred_at);
+        $this->aggregate_id = $aggregate_id;
+        $this->aggregate_type_id = $aggregate_type_id;
         $this->schema = $schema;
+    }
+    
+    public function aggregate_id()
+    {
+        return $this->aggregate_id;
+    }
+    
+    public function aggregate_type_id()
+    {
+        return $this->aggregate_type_id;
     }
 
     public function schema()

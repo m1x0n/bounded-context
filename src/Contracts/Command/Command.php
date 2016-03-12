@@ -1,9 +1,8 @@
 <?php namespace BoundedContext\Contracts\Command;
 
-use BoundedContext\Contracts\Core\Identifiable;
-use BoundedContext\Contracts\ValueObject\ValueObject;
+use BoundedContext\Contracts\Core\Loggable;
 
-interface Command extends Identifiable, ValueObject
+interface Command extends Loggable
 {
 
 }

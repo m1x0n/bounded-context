@@ -7,6 +7,5 @@ interface Identifier extends ValueObject
      *
      * @return boolean
      */
-
     public function is_null();
 }

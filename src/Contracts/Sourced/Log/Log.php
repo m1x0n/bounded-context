@@ -2,7 +2,7 @@
 
 use BoundedContext\Contracts\Collection\Collection;
 use BoundedContext\Contracts\Core\Resetable;
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Core\Loggable;
 use BoundedContext\Contracts\Sourced\Stream\Builder;
 
 interface Log extends Resetable
@@ -17,18 +17,16 @@ interface Log extends Resetable
     /**
      * Appends an Event to the end of the Log.
      *
-     * @param Event $event
+     * @param Loggable $loggable
      * @return void
      */
-
-    public function append(Event $event);
+    public function append(Loggable $loggable);
 
     /**
-     * Appends a Collection of Events to the end of the Log.
+     * Appends a Collection of Loggables to the end of the Log.
      *
-     * @param Collection $events
+     * @param Collection $loggable
      * @return void
      */
-
-    public function append_collection(Collection $events);
+    public function append_collection(Collection $loggable);
 }

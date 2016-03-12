@@ -35,10 +35,10 @@ class Builder implements \BoundedContext\Contracts\Sourced\Aggregate\Stream\Buil
         return $this;
     }
 
-    public function with(Identifier $aggregate_type_id, Identifier $aggregate_id)
+    public function ids(Identifier $aggregate_id, Identifier $aggregate_type_id)
     {
-        $this->aggregate_type_id = $aggregate_type_id;
         $this->aggregate_id = $aggregate_id;
+        $this->aggregate_type_id = $aggregate_type_id;
 
         return $this;
     }

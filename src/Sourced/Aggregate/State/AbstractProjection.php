@@ -22,8 +22,7 @@ abstract class AbstractProjection extends AbstractValueObject implements Project
 
         $serialized = [];
 
-        foreach ($properties as $index => $property)
-        {
+        foreach ($properties as $index => $property) {
             $name = $property->getName();
             $value = $this->$name;
             $serialized[$name] = $value->serialize();

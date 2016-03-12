@@ -21,10 +21,11 @@ class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snaps
         $this->datetime_generator = $datetime_generator;
     }
 
-    public function create(Identifier $id)
+    public function create(Identifier $aggregate_id, Identifier $aggregate_type_id)
     {
         return new Snapshot(
-            $id,
+            $aggregate_id,
+            $aggregate_type_id,
             new Integer(),
             $this->datetime_generator->now(),
             new Schema()
@@ -34,7 +35,8 @@ class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snaps
     public function tree(array $tree)
     {
         return new Snapshot(
-            $this->identifier_generator->string($tree['id']),
+            $this->identifier_generator->string($tree['aggregate_id']),
+            $this->identifier_generator->string($tree['aggregate_type_id']),
             new Integer($tree['version']),
             $this->datetime_generator->string($tree['occurred_at']),
             new Schema($tree['state'])
@@ -44,7 +46,8 @@ class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snaps
     public function state(State $state)
     {
         return new Snapshot(
-            $state->id(),
+            $state->aggregate_id(),
+            $state->aggregate_type_id(),
             $state->version(),
             $this->datetime_generator->now(),
             new Schema($state->queryable()->serialize())

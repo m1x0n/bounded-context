@@ -20,8 +20,7 @@ class AbstractSerializable
 
     public static function deserialize($serialised = null)
     {
-        if(is_null($serialised))
-        {
+        if (is_null($serialised)) {
             throw new \Exception("Having problems deserializing...");
         }
 
@@ -36,15 +35,11 @@ class AbstractSerializable
             $parameter_name = $parameter->getName();
             $parameter_class = $parameter->getClass()->name;
 
-            dd($parameter_class);
-
             $deserialised[$parameter_name] = $parameter_class::deserialize(
                 $serialised[$parameter_name]
             );
         }
-
-        dd($deserialised);
-
+        
         return $reflection->newInstanceArgs($deserialised);
     }
 }

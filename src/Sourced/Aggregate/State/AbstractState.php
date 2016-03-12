@@ -12,22 +12,30 @@ abstract class AbstractState extends AbstractValueObject implements State
 {
     use Applying;
 
-    protected $id;
+    protected $aggregate_id;
+    protected $aggregate_type_id;
 
     public function __construct(
-        Identifier $id,
+        Identifier $aggregate_id,
+        Identifier $aggregate_type_id,
         Version $version,
         Projection $projection
     )
     {
-        $this->id = $id;
+        $this->aggregate_id = $aggregate_id;
+        $this->aggregate_type_id = $aggregate_type_id;
         $this->version = $version;
         $this->projection = $projection;
     }
 
-    public function id()
+    public function aggregate_id()
     {
-        return $this->id;
+        return $this->aggregate_id;
+    }
+    
+    public function aggregate_type_id()
+    {
+        return $this->aggregate_type_id;
     }
 
     public function version()
