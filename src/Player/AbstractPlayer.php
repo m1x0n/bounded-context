@@ -51,8 +51,7 @@ abstract class AbstractPlayer implements Player
             ->limit(new Integer($limit))
             ->stream();
 
-        foreach($snapshot_stream as $snapshot)
-        {
+        foreach($snapshot_stream as $snapshot) {
             $this->apply($snapshot);
         }
     }
@@ -61,8 +60,7 @@ abstract class AbstractPlayer implements Player
     {
         $event = $this->event_factory->snapshot($snapshot);
 
-        if (!$this->can_apply($event))
-        {
+        if (!$this->can_apply($event)) {
             $this->snapshot = $this->snapshot->skip(
                 $snapshot->id(),
                 $this->datetime_generator
