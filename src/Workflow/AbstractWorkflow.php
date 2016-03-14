@@ -5,7 +5,7 @@ use BoundedContext\Contracts\Event\Factory as EventFactory;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Bus\Dispatcher;
-use BoundedContext\Contracts\Sourced\Log\Log;
+use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 use BoundedContext\Contracts\Player\Snapshot\Snapshot;
 
 use BoundedContext\Player\AbstractPlayer;
@@ -18,7 +18,7 @@ class AbstractWorkflow extends AbstractPlayer
         IdentifierGenerator $identifier_generator,
         DateTimeGenerator $datetime_generator,
         EventFactory $event_factory,
-        Log $log,
+        EventLog $log,
         Dispatcher $bus,
         Snapshot $snapshot
     )

@@ -3,7 +3,7 @@
 use BoundedContext\Contracts\Command\Command;
 
 use BoundedContext\Contracts\Event\Factory as EventFactory;
-use BoundedContext\Contracts\Sourced\Log\Log as EventLog;
+use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 
 use BoundedContext\Contracts\Sourced\Aggregate\Aggregate;
 use BoundedContext\Contracts\Sourced\Aggregate\Factory as AggregateFactory;

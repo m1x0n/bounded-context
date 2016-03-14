@@ -6,7 +6,7 @@ use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Event\Factory as EventFactory;
 use BoundedContext\Contracts\Event\Event;
 use BoundedContext\Contracts\Event\Snapshot\Snapshot as EventSnapshot;
-use BoundedContext\Contracts\Sourced\Log\Log;
+use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 use BoundedContext\Contracts\Projection\Projection;
 use BoundedContext\Player\AbstractPlayer;
 
@@ -19,7 +19,7 @@ abstract class AbstractProjector extends AbstractPlayer implements \BoundedConte
         IdentifierGenerator $identifier_generator,
         DateTimeGenerator $datetime_generator,
         EventFactory $event_factory,
-        Log $log,
+        EventLog $log,
         Snapshot $snapshot
     )
     {

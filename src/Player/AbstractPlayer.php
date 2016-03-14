@@ -3,7 +3,7 @@
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Player\Player;
-use BoundedContext\Contracts\Sourced\Log\Log;
+use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 use BoundedContext\Contracts\Player\Snapshot\Snapshot;
 
 use BoundedContext\Contracts\Event\Factory as EventFactory;
@@ -24,14 +24,14 @@ abstract class AbstractPlayer implements Player
         IdentifierGenerator $identifier_generator,
         DateTimeGenerator $datetime_generator,
         EventFactory $event_factory,
-        Log $log,
+        EventLog $event_log,
         Snapshot $snapshot
     )
     {
         $this->identifier_generator = $identifier_generator;
         $this->datetime_generator = $datetime_generator;
         $this->event_factory = $event_factory;
-        $this->log = $log;
+        $this->log = $event_log;
         $this->snapshot = $snapshot;
     }
 

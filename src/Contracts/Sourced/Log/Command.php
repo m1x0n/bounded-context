@@ -1,9 +1,9 @@
 <?php namespace BoundedContext\Contracts\Sourced\Log;
 
-use BoundedContext\Contracts\Collection\Collection;
 use BoundedContext\Contracts\Command\Command;
+use BoundedContext\Contracts\Core\Resetable;
 
-interface Event extends Log
+interface Command extends Resetable
 {
     /**
      * Appends an Commands to the end of the Log.
@@ -12,12 +12,4 @@ interface Event extends Log
      * @return void
      */
     public function append(Command $command);
-
-    /**
-     * Appends a Collection of Commands to the end of the Log.
-     *
-     * @param Collection $commands
-     * @return void
-     */
-    public function append_collection(Collection $commands);
 }
