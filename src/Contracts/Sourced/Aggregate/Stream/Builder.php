@@ -11,7 +11,6 @@ interface Builder
      *
      * @return Builder
      */
-
     public function ids(Identifier $aggregate_id, Identifier $aggregate_type_id);
 
     /**
@@ -20,7 +19,6 @@ interface Builder
      * @param Integer_ $version
      * @return Builder
      */
-
     public function after(Integer_ $version);
 
     /**
@@ -29,7 +27,6 @@ interface Builder
      *
      * @return Builder
      */
-
     public function limit(Integer_ $limit);
 
     /**
@@ -38,7 +35,6 @@ interface Builder
      *
      * @return Builder
      */
-
     public function chunk(Integer_ $size);
 
     /**
@@ -46,6 +42,5 @@ interface Builder
      *
      * @return Stream
      */
-
     public function stream();
 }

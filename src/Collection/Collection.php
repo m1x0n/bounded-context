@@ -47,8 +47,7 @@ class Collection implements CollectionContract
 
     public function append_collection(CollectionContract $other)
     {
-        foreach($other as $item)
-        {
+        foreach ($other as $item) {
             $this->items[] = $item;
         }
     }

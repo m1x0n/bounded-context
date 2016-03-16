@@ -1,6 +1,7 @@
 <?php namespace BoundedContext\Sourced\Stream;
 
 use BoundedContext\Collection\Collection;
+use BoundedContext\Schema\Schema;
 use BoundedContext\Contracts\Event\Snapshot\Factory as EventSnapshotFactory;
 use BoundedContext\ValueObject\Integer as Integer_;
 
@@ -13,6 +14,8 @@ abstract class AbstractStream
 
     protected $limit;
     protected $chunk_size;
+    
+    protected $log_table = 'event_log';
 
     /**
      * @var Integer_
@@ -49,7 +52,30 @@ abstract class AbstractStream
      * Fetches the next set of event snapshot schemas.
      * @return void
      */
-    abstract protected function fetch();
+    protected function fetch()
+    {
+        $this->event_snapshots = new Collection();
+
+        $event_snapshot_schemas = $this->get_next_chunk();
+        
+        foreach ($event_snapshot_schemas as $event_snapshot_schema) {
+            $event_snapshot = $this->event_snapshot_factory->schema(
+                new Schema(
+                    json_decode(
+                        $event_snapshot_schema->snapshot,
+                        true
+                    )
+                )
+            );
+            $this->event_snapshots->append($event_snapshot);
+        }
+        
+        $this->set_offset($event_snapshot_schemas);
+    }
+    
+    abstract protected function get_next_chunk();
+    
+    abstract protected function set_offset(array $event_snapshot_rows);
 
     protected function is_unlimited()
     {
