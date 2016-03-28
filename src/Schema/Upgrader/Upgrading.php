@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Schema\Upgrader;
 
 use BoundedContext\Contracts\Schema\Schema;
-use BoundedContext\ValueObject\Integer as Version;
+use EventSourced\ValueObject\ValueObject\Integer as Version;
 
 trait Upgrading
 {
@@ -17,7 +17,7 @@ trait Upgrading
 
     private function get_function_name()
     {
-        return 'when_version_' . $this->version->serialize();
+        return 'when_version_' . $this->version->value();
     }
 
     private function can_upgrade()

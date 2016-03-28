@@ -1,27 +1,18 @@
 <?php namespace BoundedContext\Contracts\Sourced\Log;
 
-use BoundedContext\Contracts\Collection\Collection;
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Sourced\Aggregate\Aggregate;
 use BoundedContext\Contracts\Sourced\Stream\Builder;
 use BoundedContext\Contracts\Core\Resetable;
 
 interface Event extends Resetable
 {
     /**
-     * Appends an Event to the end of the Log.
-     *
-     * @param Event $event
-     * @return void
-     */
-    public function append(Event $event);
-
-    /**
      * Appends a Collection of Events to the end of the Log.
      *
-     * @param Collection $events
+     * @param Aggregate $aggregate
      * @return void
      */
-    public function append_collection(Collection $events);
+    public function append_aggregate_events(Aggregate $aggregate);
     
     /**
      * Returns a new Stream Builder for the Log.

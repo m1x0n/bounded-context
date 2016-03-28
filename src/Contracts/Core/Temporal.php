@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Core;
 
-use BoundedContext\Contracts\ValueObject\DateTime;
+use EventSourced\ValueObject\Contracts\ValueObject\DateTime;
 
 interface Temporal
 {

@@ -1,14 +1,14 @@
 <?php namespace BoundedContext\Sourced\Aggregate\State;
 
 use BoundedContext\Contracts\Event\Event;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Projection\Projection;
 use BoundedContext\Contracts\Sourced\Aggregate\State\State;
 use BoundedContext\Event\Applying;
-use BoundedContext\ValueObject\AbstractValueObject;
-use BoundedContext\ValueObject\Integer as Version;
+use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
+use EventSourced\ValueObject\ValueObject\Integer as Version;
 
-abstract class AbstractState extends AbstractValueObject implements State
+abstract class AbstractState extends AbstractComposite implements State
 {
     use Applying;
 

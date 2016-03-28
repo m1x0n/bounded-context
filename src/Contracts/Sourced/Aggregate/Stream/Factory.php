@@ -1,8 +1,8 @@
 <?php namespace BoundedContext\Contracts\Sourced\Aggregate\Stream;
 
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Sourced\Stream\Stream;
-use BoundedContext\ValueObject\Integer as Integer_;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 interface Factory
 {

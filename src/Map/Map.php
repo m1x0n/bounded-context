@@ -2,9 +2,8 @@
 
 namespace BoundedContext\Map;
 
-use BoundedContext\Contracts\Core\Collectable;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 class Map
 {
@@ -25,10 +24,10 @@ class Map
 
     public function get_class(Identifier $id)
     {
-        return $this->id_map[$id->serialize()];
+        return $this->id_map[$id->value()];
     }
 
-    public function get_id(Collectable $class)
+    public function get_id($class)
     {
         return $this->generator->string(
             $this->class_map[get_class($class)]

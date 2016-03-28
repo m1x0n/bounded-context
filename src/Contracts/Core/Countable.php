@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Core;
 
-use BoundedContext\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 interface Countable
 {

@@ -1,12 +1,12 @@
 <?php namespace BoundedContext\Event;
 
 use BoundedContext\Contracts\Event\Event;
-use BoundedContext\Serializable\AbstractIdentifiedSerializable;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\ValueObject\Type\AbstractEntity;
 
-class AbstractEvent extends AbstractIdentifiedSerializable implements Event
+class AbstractEvent extends AbstractEntity implements Event
 {
-    private $aggregate_type_id;
+    protected $aggregate_type_id;
     
     public function aggregate_type_id()
     {

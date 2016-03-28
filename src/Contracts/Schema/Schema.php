@@ -1,8 +1,6 @@
 <?php namespace BoundedContext\Contracts\Schema;
 
-use BoundedContext\Contracts\Core\Collectable;
-
-interface Schema extends Collectable
+interface Schema
 {
     /**
      * Adds a new structure to the Schema by key.
@@ -11,7 +9,6 @@ interface Schema extends Collectable
      * @param \Closure|null $changes
      * @return void
      */
-
     public function add($key, \Closure $changes = null);
 
     /**
@@ -21,7 +18,6 @@ interface Schema extends Collectable
      * @param \Closure|null $changes
      * @return void
      */
-
     public function upgrade($key, \Closure $changes);
 
     /**
@@ -31,7 +27,6 @@ interface Schema extends Collectable
      * @param string $new_key
      * @return void
      */
-
     public function rename($old_key, $new_key);
 
     /**
@@ -40,14 +35,12 @@ interface Schema extends Collectable
      * @param string $key
      * @return void
      */
-
     public function remove($key);
-
+ 
     /**
-     * Gets the schema as an array.
-     *
+     * Return the internal data tree of the schema
+     * 
      * @return array
      */
-
-    public function serialize();
+    public function data_tree();
 }

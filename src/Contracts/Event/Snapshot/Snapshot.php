@@ -2,7 +2,7 @@
 
 use BoundedContext\Contracts\Schema\Schema;
 use BoundedContext\Contracts\Snapshot\Snapshot as SnapshotContract;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 interface Snapshot extends SnapshotContract
 {

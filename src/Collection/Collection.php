@@ -1,8 +1,7 @@
 <?php namespace BoundedContext\Collection;
 
-use BoundedContext\Contracts\Core\Collectable;
 use BoundedContext\Contracts\Collection\Collection as CollectionContract;
-use BoundedContext\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 class Collection implements CollectionContract
 {
@@ -11,7 +10,6 @@ class Collection implements CollectionContract
 
     public function __construct(array $items = [])
     {
-
         $this->reset();
 
         foreach ($items as $item) {
@@ -40,7 +38,7 @@ class Collection implements CollectionContract
         return (count($this->items) == 0);
     }
 
-    public function append(Collectable $c)
+    public function append($c)
     {
         $this->items[] = $c;
     }
@@ -75,17 +73,5 @@ class Collection implements CollectionContract
     public function valid()
     {
         return isset($this->items[$this->key]);
-    }
-
-    public function serialize()
-    {
-        $serialized = [];
-
-        foreach($this as $item)
-        {
-            $serialized[] = $item->serialize();
-        }
-
-        return $serialized;
     }
 }

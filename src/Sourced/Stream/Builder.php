@@ -2,8 +2,8 @@
 
 use BoundedContext\Contracts\Sourced\Stream\Factory as StreamFactory;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
-use BoundedContext\Contracts\ValueObject\Identifier;
-use BoundedContext\ValueObject\Integer as Integer_;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 class Builder implements \BoundedContext\Contracts\Sourced\Stream\Builder
 {

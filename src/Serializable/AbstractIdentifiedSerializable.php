@@ -1,8 +1,8 @@
 <?php namespace BoundedContext\Serializable;
 
 use BoundedContext\Contracts\Core\Identifiable;
-use BoundedContext\Contracts\ValueObject\ValueObject;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 class AbstractIdentifiedSerializable extends AbstractSerializable implements Identifiable
 {
@@ -20,13 +20,13 @@ class AbstractIdentifiedSerializable extends AbstractSerializable implements Ide
 
     public function equals(ValueObject $other)
     {
-        return ($this->serialize() === $other->serialize());
+        return ($this->value() === $other->value());
     }
 
     public function serialize()
     {
         $serialized = parent::serialize();
-        $serialized['id'] = $this->id->serialize();
+        $serialized['id'] = $this->id->value();
 
         return $serialized;
     }

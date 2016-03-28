@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Contracts\Business\Invariant;
 
 use BoundedContext\Contracts\Business\Invariant\Exception;
-use BoundedContext\Contracts\ValueObject\ValueObject;
+use EventSourced\ValueObject\Contracts\ValueObject;
 
 interface Invariant
 {

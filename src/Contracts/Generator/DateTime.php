@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Generator;
 
-use BoundedContext\Contracts\ValueObject\DateTime as DateTimeVO;
+use EventSourced\ValueObject\Contracts\ValueObject\DateTime as DateTimeVO;
 
 interface DateTime extends ValueObject
 {
@@ -9,7 +9,6 @@ interface DateTime extends ValueObject
      *
      * @return DateTimeVO
      */
-
     public function now();
 
     /**
@@ -18,6 +17,5 @@ interface DateTime extends ValueObject
      * @param string $date_time
      * @return DateTimeVO
      */
-
     public function string($date_time);
 }

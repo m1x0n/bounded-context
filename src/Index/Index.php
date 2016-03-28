@@ -4,7 +4,7 @@ use BoundedContext\Collection\Collection;
 use BoundedContext\Contracts\Entity\Entity;
 use BoundedContext\Contracts\Index\Exception\Exists;
 use BoundedContext\Contracts\Index\Exception\NotExists;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 class Index implements \BoundedContext\Contracts\Index\Index
 {
@@ -32,41 +32,41 @@ class Index implements \BoundedContext\Contracts\Index\Index
 
     public function exists(Identifier $id)
     {
-        return array_key_exists($id->serialize(), $this->index);
+        return array_key_exists($id->value(), $this->index);
     }
 
     public function add(Entity $entity)
     {
         if($this->exists($entity->id()))
         {
-            throw new Exists("Entity" . $entity->id()->serialize() . " already exists in this index.");
+            throw new Exists("Entity" . $entity->id()->value() . " already exists in this index.");
         }
 
-        $this->index[$entity->id()->serialize()] = $entity;
+        $this->index[$entity->id()->value()] = $entity;
     }
 
     public function replace(Entity $entity)
     {
         if(!$this->exists($entity->id()))
         {
-            throw new NotExists("Entity" . $entity->id()->serialize() . " does not exist in this index.");
+            throw new NotExists("Entity" . $entity->id()->value() . " does not exist in this index.");
         }
 
-        $this->index[$entity->id()->serialize()] = $entity;
+        $this->index[$entity->id()->value()] = $entity;
     }
 
     public function remove(Identifier $id)
     {
         if(!$this->exists($id))
         {
-            throw new NotExists("Entity" . $id->serialize() . " does not exist in this index.");
+            throw new NotExists("Entity" . $id->value() . " does not exist in this index.");
         }
 
-        unset($this->index[$id->serialize()]);
+        unset($this->index[$id->value()]);
     }
 
     public function serialize()
     {
-        return $this->collection()->serialize();
+        return $this->collection()->value();
     }
 }

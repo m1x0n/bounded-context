@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Player;
 
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 interface Repository
 {

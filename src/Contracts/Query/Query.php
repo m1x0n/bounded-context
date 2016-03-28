@@ -1,8 +1,8 @@
 <?php namespace BoundedContext\Contracts\Query;
 
 use BoundedContext\Contracts\Command\Command;
-use BoundedContext\Contracts\ValueObject\Key;
-use BoundedContext\ValueObject\Integer;
+use EventSourced\ValueObject\Contracts\ValueObject\Key;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 interface Query extends Command
 {

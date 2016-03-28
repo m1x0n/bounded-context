@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Contracts\Sourced\Aggregate\TypeId;
 
 use BoundedContext\Contracts\Command\Command;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 interface Factory
 {

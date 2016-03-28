@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Sourced\Aggregate\State\Snapshot;
 
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 interface Repository
 {

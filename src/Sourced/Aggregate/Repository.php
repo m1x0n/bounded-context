@@ -57,16 +57,14 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
             ->with($command)
             ->snapshot( $this->snapshot($command) );
 
-        $event_stream = $this->aggregate_stream_builder
+        $event_snapshot_stream = $this->aggregate_stream_builder
             ->ids($state->aggregate_id(), $state->aggregate_type_id())
             ->after($state->version())
             ->stream();
 
-        foreach($event_stream as $event)
-        {
-            $state->apply(
-                $this->event_factory->snapshot($event)
-            );
+        foreach ($event_snapshot_stream as $event_snapshot) {
+            $event = $this->event_factory->snapshot($event_snapshot);
+            $state->apply($event);
         }
 
         return $this->aggregate_factory->state($state);
@@ -82,15 +80,10 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
 
     public function save(Aggregate $aggregate)
     {
-        $this->state_snapshot_repository->save(
-            $this->state_snapshot_factory->state(
-                $aggregate->state()
-            )
-        );
+        $state_snapshot = $this->state_snapshot_factory->state($aggregate->state());
+        $this->state_snapshot_repository->save($state_snapshot);
 
-        $this->event_log->append_collection(
-            $aggregate->changes()
-        );
+        $this->event_log->append_aggregate_events($aggregate);
 
         $aggregate->flush();
     }

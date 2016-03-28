@@ -12,7 +12,7 @@ class AbstractSerializable
         {
             $name = $parameter->getName();
             $value = $this->$name;
-            $serialized[$name] = $value->serialize();
+            $serialized[$name] = $value->value();
         }
 
         return $serialized;

@@ -1,9 +1,9 @@
 <?php namespace BoundedContext\Sourced\Aggregate\State;
 
 use BoundedContext\Contracts\Projection\Projection;
-use BoundedContext\ValueObject\AbstractValueObject;
+use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
 
-abstract class AbstractProjection extends AbstractValueObject implements Projection
+abstract class AbstractProjection extends AbstractComposite implements Projection
 {
     public function reset()
     {
@@ -13,21 +13,5 @@ abstract class AbstractProjection extends AbstractValueObject implements Project
     public function queryable()
     {
         return $this;
-    }
-
-    public function serialize()
-    {
-        $class = new \ReflectionClass(get_called_class());
-        $properties = $class->getProperties();
-
-        $serialized = [];
-
-        foreach ($properties as $index => $property) {
-            $name = $property->getName();
-            $value = $this->$name;
-            $serialized[$name] = $value->serialize();
-        }
-
-        return $serialized;
     }
 }

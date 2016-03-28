@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Core;
 
-use BoundedContext\ValueObject\Integer as Version;
+use EventSourced\ValueObject\ValueObject\Integer as Version;
 
 interface Versionable
 {

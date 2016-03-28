@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Generator;
 
-use BoundedContext\Contracts\ValueObject\Identifier as IdentifierVO;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier as IdentifierVO;
 
 interface Identifier extends ValueObject
 {
@@ -9,7 +9,6 @@ interface Identifier extends ValueObject
      *
      * @return IdentifierVO
      */
-
     public function generate();
 
     /**
@@ -17,7 +16,6 @@ interface Identifier extends ValueObject
      *
      * @return IdentifierVO
      */
-
     public function null();
 
     /**
@@ -26,6 +24,5 @@ interface Identifier extends ValueObject
      * @param string $identifier
      * @return IdentifierVO
      */
-
     public function string($identifier);
 }

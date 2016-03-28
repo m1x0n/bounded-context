@@ -8,7 +8,7 @@ use BoundedContext\Contracts\Player\Snapshot\Snapshot;
 
 use BoundedContext\Contracts\Event\Factory as EventFactory;
 use BoundedContext\Event\Snapshot\Snapshot as EventSnapshot;
-use BoundedContext\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 abstract class AbstractPlayer implements Player
 {

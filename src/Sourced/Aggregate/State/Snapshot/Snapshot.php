@@ -1,10 +1,10 @@
 <?php namespace BoundedContext\Sourced\Aggregate\State\Snapshot;
 
-use BoundedContext\Contracts\ValueObject\DateTime;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\DateTime;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Schema\Schema;
 use BoundedContext\Snapshot\AbstractSnapshot;
-use BoundedContext\ValueObject\Integer as Version;
+use EventSourced\ValueObject\ValueObject\Integer as Version;
 
 class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snapshot\Snapshot
 {

@@ -1,9 +1,9 @@
 <?php namespace BoundedContext\Command;
 
 use BoundedContext\Contracts\Command\Command;
-use BoundedContext\Serializable\AbstractIdentifiedSerializable;
+use EventSourced\ValueObject\ValueObject\Type\AbstractEntity;
 
-class AbstractCommand extends AbstractIdentifiedSerializable implements Command
+class AbstractCommand extends AbstractEntity implements Command
 {
     public function aggregate_type_id()
     {

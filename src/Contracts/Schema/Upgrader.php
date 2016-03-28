@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Contracts\Schema;
 
 use BoundedContext\Contracts\Core\Versionable;
-use BoundedContext\ValueObject\Integer as Version;
+use EventSourced\ValueObject\ValueObject\Integer as Version;
 
 interface Upgrader extends Versionable
 {

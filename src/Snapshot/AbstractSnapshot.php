@@ -1,16 +1,13 @@
 <?php namespace BoundedContext\Snapshot;
 
-use BoundedContext\Contracts\ValueObject\DateTime;
-use BoundedContext\Contracts\ValueObject\Identifier;
-use BoundedContext\ValueObject\AbstractValueObject;
-use BoundedContext\ValueObject\Integer as Version;
+use EventSourced\ValueObject\Contracts\ValueObject\DateTime;
+use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
+use EventSourced\ValueObject\ValueObject\Integer as Version;
 
-abstract class AbstractSnapshot extends AbstractValueObject
+abstract class AbstractSnapshot extends AbstractComposite
 {
-    public $aggregate_id;
-    public $aggregate_type_id;
-    public $version;
-    public $occurred_at;
+    protected $version;
+    protected $occurred_at;
 
     public function __construct(
         Version $version,

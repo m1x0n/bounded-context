@@ -1,4 +1,6 @@
-<?php namespace BoundedContext\Contracts\Core;
+<?php 
+
+namespace BoundedContext\Contracts\Core;
 
 interface Collectable
 {

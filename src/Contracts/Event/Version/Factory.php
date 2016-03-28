@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Contracts\Event\Version;
 
 use BoundedContext\Contracts\Core\Loggable;
-use BoundedContext\ValueObject\Integer as Integer_;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 interface Factory
 {

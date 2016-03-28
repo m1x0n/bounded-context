@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Contracts\Player\Snapshot;
 
 use BoundedContext\Contracts\Core\Identifiable;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
 

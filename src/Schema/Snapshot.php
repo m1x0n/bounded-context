@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Schema;
 
 use BoundedContext\Contracts\Schema\Snapshot as SnapshotContract;
-use BoundedContext\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 class Snapshot implements SnapshotContract
 {

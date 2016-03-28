@@ -3,7 +3,6 @@
 use Iterator;
 use BoundedContext\Contracts\Core\Countable;
 use BoundedContext\Contracts\Core\Resetable;
-use BoundedContext\Contracts\Core\Collectable;
 
 interface Collection extends Iterator, Resetable, Countable
 {
@@ -22,7 +21,7 @@ interface Collection extends Iterator, Resetable, Countable
      * @return void
      */
 
-    public function append(Collectable $collectable);
+    public function append($collectable);
 
     /**
      * Appends a Collection to the end of the current Collection.

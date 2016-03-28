@@ -1,8 +1,8 @@
 <?php namespace BoundedContext\Contracts\Index;
 
 use BoundedContext\Contracts\Core\Collector;
-use BoundedContext\Contracts\ValueObject\Identifier;
-use BoundedContext\ValueObject\Boolean;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\ValueObject\Boolean;
 use BoundedContext\Contracts\Core\Countable;
 use BoundedContext\Contracts\Entity\Entity;
 

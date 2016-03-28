@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Core;
 
-use BoundedContext\Contracts\ValueObject\ValueObject;
+use EventSourced\ValueObject\Contracts\ValueObject;
 
 interface Loggable extends Identifiable, ValueObject
 {

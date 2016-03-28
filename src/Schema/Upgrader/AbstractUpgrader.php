@@ -2,8 +2,8 @@
 
 use BoundedContext\Contracts\Schema\Schema;
 use BoundedContext\Contracts\Schema\Upgrader;
-use BoundedContext\ValueObject\Integer as Version;
-use BoundedContext\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\Integer as Version;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 abstract class AbstractUpgrader implements Upgrader
 {
@@ -14,7 +14,7 @@ abstract class AbstractUpgrader implements Upgrader
         $this->schema = $schema;
         $this->version = $version;
 
-        if($this->version->equals(new Version()))
+        if($this->version->equals(new Version(0)))
         {
             $this->schema->add('id');
         }
@@ -30,7 +30,7 @@ abstract class AbstractUpgrader implements Upgrader
         $class = new \ReflectionClass($this);
         $methods = $class->getMethods(\ReflectionMethod::IS_PROTECTED);
 
-        $version = new Integer();
+        $version = new Integer(0);
 
         foreach($methods as $method)
         {

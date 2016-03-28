@@ -2,7 +2,7 @@
 
 use BoundedContext\Contracts\Event\Event;
 use BoundedContext\Contracts\Projection\Projection;
-use BoundedContext\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 trait Applying
 {

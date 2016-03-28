@@ -3,7 +3,7 @@
 use BoundedContext\Collection\Collection;
 use BoundedContext\Schema\Schema;
 use BoundedContext\Contracts\Event\Snapshot\Factory as EventSnapshotFactory;
-use BoundedContext\ValueObject\Integer as Integer_;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 abstract class AbstractStream
 {
@@ -85,8 +85,8 @@ abstract class AbstractStream
     protected function has_more_chunks()
     {
         return (
-            $this->event_snapshots->count()->serialize() <
-            $this->chunk_size->serialize()
+            $this->event_snapshots->count()->value() <
+            $this->chunk_size->value()
         );
     }
 

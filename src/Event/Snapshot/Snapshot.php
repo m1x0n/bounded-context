@@ -2,10 +2,10 @@
 
 use BoundedContext\Contracts\Core\Identifiable;
 use BoundedContext\Contracts\Schema\Schema;
-use BoundedContext\Contracts\ValueObject\DateTime;
-use BoundedContext\Contracts\ValueObject\Identifier;
+use EventSourced\ValueObject\Contracts\ValueObject\DateTime;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Snapshot\AbstractSnapshot;
-use BoundedContext\ValueObject\Integer as Integer_;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 class Snapshot extends AbstractSnapshot implements Identifiable, \BoundedContext\Contracts\Event\Snapshot\Snapshot
 {

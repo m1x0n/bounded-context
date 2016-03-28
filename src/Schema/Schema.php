@@ -82,7 +82,7 @@ class Schema implements \BoundedContext\Contracts\Schema\Schema
         unset($this->schema[$key]);
     }
 
-    public function serialize()
+    public function data_tree()
     {
         return $this->schema;
     }
