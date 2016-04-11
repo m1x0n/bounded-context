@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Event\Snapshot;
 
-use BoundedContext\Contracts\Core\Loggable;
+use BoundedContext\Contracts\Event\Event;
 use BoundedContext\Contracts\Schema\Schema;
 
 interface Factory
@@ -8,11 +8,11 @@ interface Factory
     /**
      * Returns a new Snapshot from an Event.
      *
-     * @param Loggable $loggable
+     * @param Event $event
      * @return Snapshot $snapshot
      */
 
-    public function loggable(Loggable $loggable);
+    public function event(Event $event);
 
     /**
      * Returns a new Snapshot from a Schema.
