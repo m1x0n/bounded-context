@@ -60,7 +60,7 @@ abstract class AbstractInvariant implements Invariant
             ($this->satisfier($this->queryable) && !$this->is_invariant)
         )
         {
-            throw new Exception("More Context later on.");
+            throw new Exception("Invariant broken: ".get_called_class());
 
             /*
              * Namespace of Class : String

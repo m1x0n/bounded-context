@@ -19,23 +19,15 @@ class Player implements \BoundedContext\Contracts\Player\Player
 
     public function reset()
     {
-        foreach($this->player_identifiers as $player_identifier)
-        {
+        foreach($this->player_identifiers as $player_identifier) {
             try {
-
-                $player = $this->player_repository->get(
-                    $player_identifier
-                );
+                $player = $this->player_repository->get($player_identifier);
 
                 $player->reset();
 
-                $this->player_repository->save(
-                    $player
-                );
+                $this->player_repository->save($player);
 
-            } catch(\Exception $e)
-            {
-                // Send to Airbrake? Then continue.
+            } catch(\Exception $e) {
                 dd($e);
             }
         }
@@ -43,23 +35,15 @@ class Player implements \BoundedContext\Contracts\Player\Player
 
     public function play($limit = 1000)
     {
-        foreach($this->player_identifiers as $player_identifier)
-        {
+        foreach($this->player_identifiers as $player_identifier) {
             try {
-
-                $player = $this->player_repository->get(
-                    $player_identifier
-                );
-
+                $player = $this->player_repository->get($player_identifier);
+        
                 $player->play();
 
-                $this->player_repository->save(
-                    $player
-                );
+                $this->player_repository->save($player);
 
-            } catch(\Exception $e)
-            {
-                // Send to Airbrake? Then continue.
+            } catch(\Exception $e) {
                 dd($e);
             }
         }

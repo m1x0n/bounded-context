@@ -50,6 +50,7 @@ class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snaps
     public function state(State $state)
     {
         $serialized = $this->serializer->serialize($state->queryable());
+        
         return new Snapshot(
             $state->aggregate_id(),
             $state->aggregate_type_id(),

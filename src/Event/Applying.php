@@ -19,46 +19,36 @@ trait Applying
     private function from_camel_case($input)
     {
         preg_match_all('!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $input, $matches);
-
         $ret = $matches[0];
-
-        foreach ($ret as &$match)
-        {
+        foreach ($ret as &$match) {
             $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
         }
-
         return implode('_', $ret);
     }
 
     private function get_handler_name(Event $event)
     {
-        $reflect = new \ReflectionClass($event);
-
-        $namespace_path_items = preg_split(
-            '#[\\\.]#',
-            get_class($event),
-            -1,
-            PREG_SPLIT_NO_EMPTY
+        $namespace_path_items = array_map([$this, 'from_camel_case'], 
+            $this->remove_unneccessary_path_items(explode("\\", get_class($event)))
         );
 
-        return 'when_'
-            . strtolower($namespace_path_items[1])
-            . '_'
-            . strtolower($namespace_path_items[3])
-            . '_'
-            . $this->from_camel_case(
-                $reflect->getShortName()
-            )
-        ;
+        return 'when_'.implode("_", $namespace_path_items);
+    }
+    
+    private function remove_unneccessary_path_items($namespace_path_items)
+    {
+        unset($namespace_path_items[0]);
+        unset($namespace_path_items[3]);
+        unset($namespace_path_items[5]);
+        return array_values($namespace_path_items);
     }
 
     protected function mutate(Event $event)
     {
-        $handler = $this->get_handler_name($event);
+        $handler_name = $this->get_handler_name($event);
 
-        if(method_exists($this, $handler))
-        {
-            $this->$handler(
+        if (method_exists($this, $handler_name)) {
+            $this->$handler_name(
                 $this->projection,
                 $event
             );

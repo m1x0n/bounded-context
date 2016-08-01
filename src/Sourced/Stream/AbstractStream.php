@@ -14,9 +14,7 @@ abstract class AbstractStream
 
     protected $limit;
     protected $chunk_size;
-    
-    protected $log_table = 'event_log';
-
+   
     /**
      * @var Integer_
      */

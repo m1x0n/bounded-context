@@ -43,9 +43,9 @@ abstract class AbstractProjector extends AbstractPlayer implements \BoundedConte
 
     protected function mutate(Event $event, EventSnapshot $snapshot)
     {
-        $handler = $this->get_handler_name($event);
-
-        $this->$handler(
+        $handler_name = $this->get_handler_name($event);
+    
+        $this->$handler_name(
             $this->projection,
             $event,
             $snapshot
