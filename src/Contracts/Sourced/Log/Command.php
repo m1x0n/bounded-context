@@ -2,6 +2,7 @@
 
 use BoundedContext\Contracts\Command\Command;
 use BoundedContext\Contracts\Core\Resetable;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 interface Command extends Resetable
 {
@@ -12,4 +13,11 @@ interface Command extends Resetable
      * @return void
      */
     public function append(Command $command);
+    
+    /** 
+     * ID of the last command to be appended
+     * 
+     * @return Identifier
+     */
+    public function last_id();
 }
