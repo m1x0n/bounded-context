@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Event;
 
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Event\DomainEvent;
 use BoundedContext\Contracts\Projection\Projection;
 use EventSourced\ValueObject\ValueObject\Integer;
 
@@ -26,7 +26,7 @@ trait Applying
         return implode('_', $ret);
     }
 
-    private function get_handler_name(Event $event)
+    private function get_handler_name(DomainEvent $event)
     {
         $namespace_path_items = array_map([$this, 'from_camel_case'], 
             $this->remove_unneccessary_path_items(explode("\\", get_class($event)))
@@ -43,7 +43,7 @@ trait Applying
         return array_values($namespace_path_items);
     }
 
-    protected function mutate(Event $event)
+    protected function mutate(DomainEvent $event)
     {
         $handler_name = $this->get_handler_name($event);
 

@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Version;
 
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Event\DomainEvent;
 use BoundedContext\Contracts\Command\Command;
 use EventSourced\ValueObject\ValueObject\Integer;
 
@@ -12,7 +12,7 @@ interface Factory
      * @param Event $event
      * @return Integer $version
      */
-    public function event(Event $event);
+    public function event(DomainEvent $event);
     
     /**
      * Returns the version from a command.

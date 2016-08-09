@@ -13,11 +13,4 @@ interface Command extends Resetable
      * @return void
      */
     public function append(Command $command);
-    
-    /** 
-     * ID of the last command to be appended
-     * 
-     * @return Identifier
-     */
-    public function last_id();
 }

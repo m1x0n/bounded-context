@@ -2,7 +2,7 @@
 
 use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Core\Versionable;
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Event\DomainEvent;
 use BoundedContext\Contracts\Projection\Queryable;
 
 interface State extends Versionable
@@ -29,5 +29,5 @@ interface State extends Versionable
      * @throws \Exception
      * @return void
      */
-    public function apply(Event $event);
+    public function apply(DomainEvent $event);
 }

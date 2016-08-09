@@ -4,7 +4,7 @@ use BoundedContext\Contracts\Player\Snapshot\Snapshot;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Event\Factory as EventFactory;
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Event\DomainEvent;
 use BoundedContext\Contracts\Event\Snapshot\Snapshot as EventSnapshot;
 use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 use BoundedContext\Contracts\Projection\Projection;
@@ -41,7 +41,7 @@ abstract class AbstractProjector extends AbstractPlayer implements \BoundedConte
         $this->projection->reset();
     }
 
-    protected function mutate(Event $event, EventSnapshot $snapshot)
+    protected function mutate(DomainEvent $event, EventSnapshot $snapshot)
     {
         $handler_name = $this->get_handler_name($event);
     

@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Sourced\Aggregate\State;
 
-use BoundedContext\Contracts\Event\Event;
+use BoundedContext\Contracts\Event\DomainEvent;
 use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Projection\Projection;
 use BoundedContext\Contracts\Sourced\Aggregate\State\State;
@@ -43,7 +43,7 @@ abstract class AbstractState extends AbstractComposite implements State
         return $this->version;
     }
 
-    public function apply(Event $event)
+    public function apply(DomainEvent $event)
     {
         $this->mutate($event);
     }

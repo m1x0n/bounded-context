@@ -73,7 +73,7 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
     private function snapshot(Command $command)
     {
         return $this->state_snapshot_repository->ids(
-            $command->id(),
+            $command->root_entity_id(),
             $this->aggregate_type_id_factory->command($command)
         );
     }
