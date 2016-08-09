@@ -26,6 +26,8 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
 
     private $event_factory;
     private $event_log;
+    
+    const SNAPSHOT_AT = 1000;
 
     public function __construct(
         StateSnapshotRepository $state_snapshot_repository,
@@ -80,11 +82,19 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
 
     public function save(Aggregate $aggregate)
     {
-        $state_snapshot = $this->state_snapshot_factory->state($aggregate->state());
-        $this->state_snapshot_repository->save($state_snapshot);
-
+        if ($this->should_snapshot($aggregate)) {
+            $state_snapshot = $this->state_snapshot_factory->state($aggregate->state());
+            $this->state_snapshot_repository->save($state_snapshot);
+        }
         $this->event_log->append_aggregate_events($aggregate);
-
         $aggregate->flush();
+    }
+    
+    private function should_snapshot(Aggregate $aggregate)
+    {
+        $new_version = $aggregate->state()->version();
+        $old_version = $new_version->subtract($aggregate->changes()->count());
+        
+        return (floor($old_version->value()/self::SNAPSHOT_AT) < floor($new_version->value()/self::SNAPSHOT_AT));
     }
 }
