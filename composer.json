@@ -1,33 +1,32 @@
 {
-    "name": "lyonscf/bounded-context",
-    "description": "A library for event-sourced bounded contexts.",
-    "license": "MIT",
-    "require": {
-        "php": ">=5.4.0",
-        "ramsey/uuid": "~2.8"
+  "name": "dql/sourced",
+  "description": "A framework for event-sourced bounded contexts.",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4.0",
+    "ramsey/uuid": "~2.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.1.*"
+  },
+  "authors": [
+    {
+      "name": "Colin Lyons",
+      "email": "colin@tercet.io"
     },
-    "require-dev": {
-        "phpunit/phpunit": "4.1.*",
-        "mockery/mockery": "dev-master"
+    {
+      "name": "Barry O'Sullivan",
+      "email": "barry@tercet.io"
     },
-    "authors": [
-        {
-            "name": "Colin Lyons",
-            "email": "clyons@olivemedia.co"
-        },
-        {
-            "name": "Barry O'Sullivan",
-            "email": "bosullivan@olivemedia.co"
-        },
-        {
-            "name": "Kiran Guragai",
-            "email": "kguragai@olivemedia.co"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "BoundedContext\\": "src/",
-            "BoundedContext\\Examples\\": "examples/"
-        }
+    {
+      "name": "Kiran Guragai",
+      "email": "kiranguragai@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "BoundedContext\\": "src/",
+      "BoundedContext\\Examples\\": "examples/"
+    }
+  }
 }
