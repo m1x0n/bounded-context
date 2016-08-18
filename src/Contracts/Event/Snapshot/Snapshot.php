@@ -26,7 +26,7 @@ interface Snapshot extends SnapshotContract, Identifiable
      *
      * @return Identifier
      */
-    public function root_entity_id();
+    public function aggregate_id();
     
     /**
      * Get the type of the aggregate type ID

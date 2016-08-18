@@ -13,7 +13,7 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Eve
     protected $type_id;
     protected $type;
     protected $command_id;
-    protected $root_entity_id;
+    protected $aggregate_id;
     protected $aggregate_type_id;
     protected $event;
 
@@ -24,7 +24,7 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Eve
         Identifier $type_id,
         EventType $type,
         Identifier $command_id,
-        Identifier $root_entity_id,
+        Identifier $aggregate_id,
         Identifier $aggregate_type_id,
         Schema $event
     )
@@ -34,7 +34,7 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Eve
         $this->type_id = $type_id;
         $this->type = $type;
         $this->command_id = $command_id;
-        $this->root_entity_id =  $root_entity_id;
+        $this->aggregate_id =  $aggregate_id;
         $this->aggregate_type_id = $aggregate_type_id;
         $this->event = $event;
     }
@@ -59,9 +59,9 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Eve
         return $this->command_id;
     }
     
-    public function root_entity_id()
+    public function aggregate_id()
     {
-        return $this->root_entity_id;
+        return $this->aggregate_id;
     }
     
     public function aggregate_type_id()

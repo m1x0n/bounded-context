@@ -6,11 +6,11 @@ use EventSourced\ValueObject\ValueObject\Uuid;
 
 class AbstractCommand extends AbstractEntity implements Command
 {
-    protected $root_entity_id;
+    protected $aggregate_id;
     
-    public function __construct(Uuid $id, Uuid $root_entity_id)
+    public function __construct(Uuid $id, Uuid $aggregate_id)
     {
-        $this->root_entity_id = $root_entity_id;
+        $this->aggregate_id = $aggregate_id;
         parent::__construct($id);
     }
     
@@ -19,8 +19,8 @@ class AbstractCommand extends AbstractEntity implements Command
         return $this->id;
     }
     
-    public function root_entity_id()
+    public function aggregate_id()
     {
-        return $this->root_entity_id;
+        return $this->aggregate_id;
     }
 }

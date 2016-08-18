@@ -5,6 +5,8 @@ use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
 
 abstract class AbstractProjection extends AbstractComposite implements Projection
 {
+    protected $root_entity;
+        
     public function reset()
     {
         throw new \Exception("Resetting a State Projection is not supported in this version.");
@@ -12,6 +14,6 @@ abstract class AbstractProjection extends AbstractComposite implements Projectio
 
     public function queryable()
     {
-        return $this;
+        return $this->root_entity;
     }
 }

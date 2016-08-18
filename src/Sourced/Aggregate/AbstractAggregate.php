@@ -44,7 +44,8 @@ abstract class AbstractAggregate
 
     protected function apply($event_class, ...$parameters)
     {
-        $domain_event = new $event_class(...$parameters);
+        $aggregate_id_and_parameters = array_merge([$this->state()->aggregate_id()], $parameters);
+        $domain_event = new $event_class(...$aggregate_id_and_parameters);
         $this->state->apply($domain_event);
         $loggable_event = $this->make_loggable_event($domain_event);
         $this->changes->append($loggable_event);

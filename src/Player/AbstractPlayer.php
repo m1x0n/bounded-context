@@ -5,8 +5,6 @@ use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Player\Player;
 use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 use BoundedContext\Contracts\Player\Snapshot\Snapshot;
-
-use BoundedContext\Contracts\Event\Factory as EventFactory;
 use BoundedContext\Event\Snapshot\Snapshot as EventSnapshot;
 use EventSourced\ValueObject\ValueObject\Integer;
 
@@ -16,21 +14,18 @@ abstract class AbstractPlayer implements Player
 
     protected $identifier_generator;
     protected $datetime_generator;
-    protected $event_factory;
     protected $log;
     protected $snapshot;
 
     public function __construct(
         IdentifierGenerator $identifier_generator,
         DateTimeGenerator $datetime_generator,
-        EventFactory $event_factory,
         EventLog $event_log,
         Snapshot $snapshot
     )
     {
         $this->identifier_generator = $identifier_generator;
         $this->datetime_generator = $datetime_generator;
-        $this->event_factory = $event_factory;
         $this->log = $event_log;
         $this->snapshot = $snapshot;
     }
@@ -56,23 +51,21 @@ abstract class AbstractPlayer implements Player
         }
     }
 
-    protected function apply(EventSnapshot $snapshot)
+    protected function apply(EventSnapshot $event_snapshot)
     {
-        $event = $this->event_factory->snapshot($snapshot);
-
-        if (!$this->can_apply($event)) {
+        if (!$this->can_apply($event_snapshot)) {
             $this->snapshot = $this->snapshot->skip(
-                $snapshot->id(),
+                $event_snapshot->id(),
                 $this->datetime_generator
             );
 
             return true;
         }
 
-        $this->mutate($event, $snapshot);
+        $this->mutate($event_snapshot);
 
         $this->snapshot = $this->snapshot->take(
-            $snapshot->id(),
+            $event_snapshot->id(),
             $this->datetime_generator
         );
     }

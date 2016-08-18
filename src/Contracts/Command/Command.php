@@ -9,5 +9,5 @@ interface Command extends Identifiable, ValueObject
     /**
      * @return Identifier
      */
-    public function root_entity_id();
+    public function aggregate_id();
 }

@@ -4,7 +4,6 @@ use BoundedContext\Contracts\Player\Snapshot\Snapshot;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Event\Factory as EventFactory;
-use BoundedContext\Contracts\Event\DomainEvent;
 use BoundedContext\Contracts\Event\Snapshot\Snapshot as EventSnapshot;
 use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 use BoundedContext\Contracts\Projection\Projection;
@@ -18,7 +17,6 @@ abstract class AbstractProjector extends AbstractPlayer implements \BoundedConte
         Projection $projection,
         IdentifierGenerator $identifier_generator,
         DateTimeGenerator $datetime_generator,
-        EventFactory $event_factory,
         EventLog $log,
         Snapshot $snapshot
     )
@@ -26,7 +24,6 @@ abstract class AbstractProjector extends AbstractPlayer implements \BoundedConte
         parent::__construct(
             $identifier_generator,
             $datetime_generator,
-            $event_factory,
             $log,
             $snapshot
         );
@@ -41,13 +38,13 @@ abstract class AbstractProjector extends AbstractPlayer implements \BoundedConte
         $this->projection->reset();
     }
 
-    protected function mutate(DomainEvent $event, EventSnapshot $snapshot)
+    protected function mutate(EventSnapshot $snapshot)
     {
-        $handler_name = $this->get_handler_name($event);
+        $handler_name = $this->get_handler_name($snapshot);
     
         $this->$handler_name(
             $this->projection,
-            $event,
+            $snapshot->schema(),
             $snapshot
         );
     }
