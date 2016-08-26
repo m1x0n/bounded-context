@@ -2,6 +2,7 @@
 
 use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Schema\Schema;
+use EventSourced\ValueObject\Contracts\ValueObject\ValueObject;
 
 interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
 {
@@ -11,9 +12,9 @@ interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
     public function aggregate_id();
     
     /**
-     * @return Identifier
+     * @return ValueObject
      */
-    public function aggregate_type_id();
+    public function aggregate_type();
     
     
     /**

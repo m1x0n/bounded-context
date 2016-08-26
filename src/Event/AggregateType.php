@@ -1,33 +1,26 @@
 <?php namespace BoundedContext\Event;
 
 use EventSourced\ValueObject\ValueObject\Type\AbstractSingleValue;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
-class Type extends AbstractSingleValue
+class AggregateType extends AbstractSingleValue implements Identifier
 {
     protected function validator()
     {
         return parent::validator()->alnum("_.")->noWhitespace()->lowercase();
     }
 
-    public function aggregate_type()
+    public static function from_class_string($class)
     {
-        $parts = explode(".", $this->value());
-        array_pop($parts);
-        return new AggregateType(implode(".", $parts));
-    }
-
-    public static function from_event($object)
-    {
-        $class = strtolower(get_class($object));
-        $parts = explode("\\", $class);
+        $parts = explode("\\", strtolower($class));
         unset($parts[0]);
         unset($parts[3]);
         unset($parts[5]);
         $parts = array_values($parts);
-        return new Type(implode(".", $parts));
+        return new AggregateType(implode(".", $parts));
     }
 
-    public function to_event_class()
+    public function to_aggregate_class()
     {
         $parts = explode(".", $this->value());
         $class_path = [
@@ -35,11 +28,13 @@ class Type extends AbstractSingleValue
             ucfirst($parts[0]),
             ucfirst($parts[1]),
             "Aggregate",
-            ucfirst($parts[2]),
-            "Event",
-            ucfirst($parts[3])
+            ucfirst($parts[2])
         ];
         return implode("\\", $class_path);
     }
-}
 
+    public function is_null()
+    {
+        return false;
+    }
+}

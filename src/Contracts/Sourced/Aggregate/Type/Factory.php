@@ -1,4 +1,4 @@
-<?php namespace BoundedContext\Contracts\Sourced\Aggregate\TypeId;
+<?php namespace BoundedContext\Contracts\Sourced\Aggregate\Type;
 
 use BoundedContext\Contracts\Command\Command;
 use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
@@ -6,7 +6,7 @@ use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 interface Factory
 {
     /**
-     * Returns the TypeID of an aggregate based on one of its commands
+     * Returns the Type of an aggregate based on one of its commands
      *
      * @param Command $command
      * @return Identifier
@@ -14,7 +14,7 @@ interface Factory
     public function command(Command $command);
     
     /**
-     * Returns the TypeID of an aggregate based on its class path
+     * Returns the Type of an aggregate based on its class path
      * 
      * @param string $aggregate_class
      * @return Identifier

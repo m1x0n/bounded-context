@@ -10,32 +10,29 @@ use BoundedContext\Event\Type as EventType;
 class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Event\Snapshot\Snapshot
 {
     protected $id;
-    protected $type_id;
     protected $type;
     protected $command_id;
     protected $aggregate_id;
-    protected $aggregate_type_id;
+    protected $aggregate_type;
     protected $event;
 
     public function __construct(
         Identifier $id,
         Integer_ $version,
         DateTime $occurred_at,
-        Identifier $type_id,
         EventType $type,
         Identifier $command_id,
         Identifier $aggregate_id,
-        Identifier $aggregate_type_id,
+        Identifier $aggregate_type,
         Schema $event
     )
     {
         parent::__construct($version, $occurred_at);
         $this->id = $id;
-        $this->type_id = $type_id;
         $this->type = $type;
         $this->command_id = $command_id;
         $this->aggregate_id =  $aggregate_id;
-        $this->aggregate_type_id = $aggregate_type_id;
+        $this->aggregate_type = $aggregate_type;
         $this->event = $event;
     }
     
@@ -44,29 +41,24 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Eve
         return $this->id;
     }
 
-    public function type_id()
+    public function aggregate_id()
     {
-        return $this->type_id;
+        return $this->aggregate_id;
     }
 
     public function type()
     {
         return $this->type;
     }
+
+    public function aggregate_type()
+    {
+        return $this->aggregate_type;
+    }
     
     public function command_id()
     {
         return $this->command_id;
-    }
-    
-    public function aggregate_id()
-    {
-        return $this->aggregate_id;
-    }
-    
-    public function aggregate_type_id()
-    {
-        return $this->aggregate_type_id;
     }
 
     public function schema()

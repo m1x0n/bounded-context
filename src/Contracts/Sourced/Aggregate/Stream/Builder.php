@@ -11,7 +11,7 @@ interface Builder
      *
      * @return Builder
      */
-    public function ids(Identifier $aggregate_id, Identifier $aggregate_type_id);
+    public function ids(Identifier $aggregate_id, Identifier $aggregate_type);
 
     /**
      * Sets that the Stream should look for snapshots after a version.

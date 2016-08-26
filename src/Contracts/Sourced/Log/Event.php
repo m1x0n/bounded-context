@@ -20,4 +20,11 @@ interface Event extends Resetable
      * @return Builder
      */
     public function builder();
+    
+    /**
+     * Return the dto events that were appended via this logs instance
+     *
+     * @return stdClass[]
+     */
+    public function get_appended_events();
 }

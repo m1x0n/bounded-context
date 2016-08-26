@@ -10,7 +10,7 @@ interface Factory
      * Creates a new Stream.
      *
      * @param Identifier $aggregate_id
-     * @param Identifier $aggregate_type_id
+     * @param Identifier $aggregate_type
      * @param Integer_ $starting_offset
      * @param Integer_ $limit
      * @param Integer_ $chunk_size
@@ -19,7 +19,7 @@ interface Factory
      */
     public function create(
         Identifier $aggregate_id,
-        Identifier $aggregate_type_id,
+        Identifier $aggregate_type,
         Integer_ $starting_offset,
         Integer_$limit,
         Integer_ $chunk_size

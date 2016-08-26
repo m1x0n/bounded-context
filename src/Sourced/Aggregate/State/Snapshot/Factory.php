@@ -7,6 +7,7 @@ use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use EventSourced\ValueObject\Contracts\Serializer;
 use BoundedContext\Schema\Schema;
 use EventSourced\ValueObject\ValueObject\Integer;
+use BoundedContext\Event\AggregateType;
 
 class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snapshot\Factory
 {
@@ -25,11 +26,11 @@ class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snaps
         $this->serializer = $serializer;
     }
 
-    public function create(Identifier $aggregate_id, Identifier $aggregate_type_id)
+    public function create(Identifier $aggregate_id, Identifier $aggregate_type)
     {
         return new Snapshot(
             $aggregate_id,
-            $aggregate_type_id,
+            $aggregate_type,
             new Integer(0),
             $this->datetime_generator->now(),
             new Schema()
@@ -40,7 +41,7 @@ class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snaps
     {
         return new Snapshot(
             $this->identifier_generator->string($tree['aggregate_id']),
-            $this->identifier_generator->string($tree['aggregate_type_id']),
+            new AggregateType($tree['aggregate_type']),
             new Integer($tree['version']),
             $this->datetime_generator->string($tree['occurred_at']),
             new Schema($tree['state'])
@@ -53,7 +54,7 @@ class Factory implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snaps
         
         return new Snapshot(
             $state->aggregate_id(),
-            $state->aggregate_type_id(),
+            $state->aggregate_type(),
             $state->version(),
             $this->datetime_generator->now(),
             new Schema($serialized)

@@ -14,7 +14,7 @@ class AbstractCommand extends AbstractEntity implements Command
         parent::__construct($id);
     }
     
-    public function aggregate_type_id()
+    public function aggregate_type()
     {
         return $this->id;
     }

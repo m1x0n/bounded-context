@@ -15,7 +15,7 @@ interface State extends Versionable
     /**
      * @return Identifier
      */
-    public function aggregate_type_id();
+    public function aggregate_type();
     
     /**
      * @return Queryable

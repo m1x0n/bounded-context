@@ -1,7 +1,7 @@
 <?php namespace BoundedContext\Sourced\Aggregate;
 
 use BoundedContext\Contracts\Business\Invariant\Factory;
-use BoundedContext\Contracts\Sourced\Aggregate\TypeId\Factory as TypeIdFactory;
+use BoundedContext\Contracts\Sourced\Aggregate\Type\Factory as TypeFactory;
 use BoundedContext\Contracts\Command\Command;
 use BoundedContext\Contracts\Generator;
 use BoundedContext\Contracts\Sourced\Aggregate\State\State;
@@ -9,7 +9,7 @@ use BoundedContext\Command\Handling;
 use BoundedContext\Collection\Collection;
 use BoundedContext\Event\Event;
 
-abstract class AbstractAggregate
+abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Aggregate\Aggregate
 {
     use Handling;
 
@@ -17,12 +17,12 @@ abstract class AbstractAggregate
     protected $state;
     protected $changes;
 
-    protected $type_id;
+    protected $type;
     protected $check;
     protected $id_generator;
 
     public function __construct(
-        TypeIdFactory $type_id_factory, 
+        TypeFactory $type_factory,
         Factory $invariant_factory, 
         Generator\Identifier $id_generator,
         State $state
@@ -31,7 +31,7 @@ abstract class AbstractAggregate
         $this->state = $state;
         $this->changes = new Collection();
         
-        $this->type_id = $type_id_factory->aggregate_class(get_called_class());
+        $this->type = $type_factory->aggregate_class(get_called_class());
         $this->check = new Check($invariant_factory, $state);
         $this->id_generator = $id_generator;
     }
@@ -56,7 +56,7 @@ abstract class AbstractAggregate
         return new Event(
             $this->id_generator->generate(),
             $this->current_command->id(), 
-            $this->state->aggregate_type_id(), 
+            $this->state->aggregate_type(),
             $this->state->aggregate_id(), 
             $domain_event
         );

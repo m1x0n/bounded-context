@@ -8,11 +8,13 @@ use EventSourced\ValueObject\ValueObject\Integer as Version;
 
 class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Sourced\Aggregate\State\Snapshot\Snapshot
 {
+    protected $aggregate_id;
+    protected $aggregate_type;
     protected $schema;
 
     public function __construct(
         Identifier $aggregate_id,
-        Identifier $aggregate_type_id,
+        Identifier $aggregate_type,
         Version $version,
         DateTime $occurred_at,
         Schema $schema
@@ -20,7 +22,7 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Sou
     {
         parent::__construct($version, $occurred_at);
         $this->aggregate_id = $aggregate_id;
-        $this->aggregate_type_id = $aggregate_type_id;
+        $this->aggregate_type = $aggregate_type;
         $this->schema = $schema;
     }
     
@@ -29,9 +31,9 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Sou
         return $this->aggregate_id;
     }
     
-    public function aggregate_type_id()
+    public function aggregate_type()
     {
-        return $this->aggregate_type_id;
+        return $this->aggregate_type;
     }
 
     public function schema()

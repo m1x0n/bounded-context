@@ -15,9 +15,9 @@ interface Event extends Identifiable, ValueObject
     public function aggregate_id();
     
     /**
-     * @return Identifier
+     * @return ValueObject
      */
-    public function aggregate_type_id();
+    public function aggregate_type();
     
     /**
      * @return Identifier

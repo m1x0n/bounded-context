@@ -2,32 +2,32 @@
 
 use BoundedContext\Contracts\Schema\Schema;
 use EventSourced\ValueObject\Contracts\ValueObject\DateTime;
-use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Snapshot\AbstractSnapshot;
+use BoundedContext\Event\Type;
 use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Command\Snapshot\Snapshot
 {
     protected $type_id;
     protected $type;
-    protected $aggregate_type_id;
+    protected $aggregate_type;
     protected $event;
 
     public function __construct(
         Integer_ $version,
         DateTime $occurred_at,
-        Identifier $type_id,
+        Type $type,
         Schema $event
     )
     {
         parent::__construct($version, $occurred_at);
-        $this->type_id = $type_id;
+        $this->type = $type;
         $this->event = $event;
     }
 
-    public function type_id()
+    public function type()
     {
-        return $this->type_id;
+        return $this->type;
     }
 
     public function schema()

@@ -13,14 +13,7 @@ interface Snapshot extends SnapshotContract, Identifiable
      * @return string
      */
     public function type();
-    
-    /**
-     * Gets the type id of the Event.
-     *
-     * @return Identifier
-     */
-    public function type_id();
-    
+        
     /**
      * Get the root entity id that this event affects
      *
@@ -33,7 +26,7 @@ interface Snapshot extends SnapshotContract, Identifiable
      *
      * @return Identifier
      */
-    public function aggregate_type_id();
+    public function aggregate_type();
     
     /**
      * Get the ID of the originating command

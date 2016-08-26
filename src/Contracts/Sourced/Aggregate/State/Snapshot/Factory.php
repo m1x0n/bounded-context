@@ -9,11 +9,11 @@ interface Factory
      * Creates a new Snapshot from a State.
      *
      * @param Identifier $aggregate_id
-     * @param Identifier $aggregate_type_id
+     * @param Identifier $aggregate_type
      * @return Snapshot
      */
 
-    public function create(Identifier $aggregate_id, Identifier $aggregate_type_id);
+    public function create(Identifier $aggregate_id, Identifier $aggregate_type);
 
     /**
      * Creates a Snapshot from a Tree.

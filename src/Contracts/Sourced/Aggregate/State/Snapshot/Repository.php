@@ -10,7 +10,7 @@ interface Repository
      * @return Snapshot
      */
 
-    public function ids(Identifier $aggregate_id, Identifier $aggregate_type_id);
+    public function ids(Identifier $aggregate_id, Identifier $aggregate_type);
 
     /**
      * Saves a Snapshot.

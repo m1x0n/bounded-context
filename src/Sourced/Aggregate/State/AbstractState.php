@@ -13,17 +13,17 @@ abstract class AbstractState extends AbstractComposite implements State
     use Applying;
 
     protected $aggregate_id;
-    protected $aggregate_type_id;
+    protected $aggregate_type;
 
     public function __construct(
         Identifier $aggregate_id,
-        Identifier $aggregate_type_id,
+        Identifier $aggregate_type,
         Version $version,
         Projection $projection
     )
     {
         $this->aggregate_id = $aggregate_id;
-        $this->aggregate_type_id = $aggregate_type_id;
+        $this->aggregate_type = $aggregate_type;
         $this->version = $version;
         $this->projection = $projection;
     }
@@ -33,9 +33,9 @@ abstract class AbstractState extends AbstractComposite implements State
         return $this->aggregate_id;
     }
     
-    public function aggregate_type_id()
+    public function aggregate_type()
     {
-        return $this->aggregate_type_id;
+        return $this->aggregate_type;
     }
 
     public function version()
