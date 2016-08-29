@@ -1,6 +1,6 @@
 <?php namespace BoundedContext\Contracts\Sourced\Log;
 
-use BoundedContext\Contracts\Command\Command;
+use BoundedContext\Contracts\Command\Command as CommandObject;
 use BoundedContext\Contracts\Core\Resetable;
 use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
@@ -12,5 +12,5 @@ interface Command extends Resetable
      * @param Command $command
      * @return void
      */
-    public function append(Command $command);
+    public function append(CommandObject $command);
 }
