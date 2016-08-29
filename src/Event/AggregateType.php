@@ -12,23 +12,24 @@ class AggregateType extends AbstractSingleValue implements Identifier
 
     public static function from_class_string($class)
     {
-        $parts = explode("\\", strtolower($class));
-        unset($parts[0]);
-        unset($parts[3]);
-        unset($parts[5]);
-        $parts = array_values($parts);
-        return new AggregateType(implode(".", $parts));
+        $type = Type::from_event_class($class);
+        return new AggregateType($type->value());
     }
 
     public function to_aggregate_class()
     {
-        $parts = explode(".", $this->value());
+        $snake_case_parts = explode(".", $this->value());
+
+        $camel_case_parts = array_map(function($str) {
+            return CaseTransformer::to_camelcase($str);
+        }, $snake_case_parts);
+
         $class_path = [
             "Domain",
-            ucfirst($parts[0]),
-            ucfirst($parts[1]),
+            $camel_case_parts[0],
+            $camel_case_parts[1],
             "Aggregate",
-            ucfirst($parts[2])
+            $camel_case_parts[2]
         ];
         return implode("\\", $class_path);
     }
