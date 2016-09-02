@@ -3,6 +3,7 @@
 use BoundedContext\Contracts\Command\Command;
 
 use BoundedContext\Contracts\Event\Factory as EventFactory;
+use BoundedContext\Contracts\Sourced\Log;
 use BoundedContext\Contracts\Sourced\Log\Event as EventLog;
 
 use BoundedContext\Contracts\Sourced\Aggregate\Aggregate;
@@ -96,5 +97,13 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
         $old_version = $new_version->subtract($aggregate->changes()->count());
         
         return (floor($old_version->value()/self::SNAPSHOT_AT) < floor($new_version->value()/self::SNAPSHOT_AT));
+    }
+
+    /**
+     * @return Log\Event
+     */
+    public function event_log()
+    {
+        return $this->event_log;
     }
 }

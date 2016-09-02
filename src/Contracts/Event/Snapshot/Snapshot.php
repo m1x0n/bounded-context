@@ -41,4 +41,5 @@ interface Snapshot extends SnapshotContract, Identifiable
      * @return Schema
      */
     public function schema();
+
 }

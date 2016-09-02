@@ -1,6 +1,7 @@
 <?php namespace BoundedContext\Contracts\Sourced\Aggregate;
 
 use BoundedContext\Contracts\Command\Command;
+use BoundedContext\Contracts\Sourced\Log;
 
 interface Repository {
 
@@ -19,4 +20,9 @@ interface Repository {
      * @return void
      */
     public function save(Aggregate $aggregate);
+
+    /**
+     * @return Log\Event
+     */
+    public function event_log();
 }
