@@ -21,7 +21,7 @@ class Factory
     public function make(array $snapshot)
     {
         return new Snapshot(
-            $this->identifier_generator->string($snapshot['id']),
+            new ClassName($snapshot['class_name']),
             new Integer($snapshot['version']),
             $this->datetime_generator->string($snapshot['occurred_at']),
             $this->identifier_generator->string($snapshot['last_id'])

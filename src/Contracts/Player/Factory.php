@@ -10,6 +10,7 @@ interface Factory
      * @param Snapshot $snapshot
      * @return Player $player
      */
-
     public function snapshot(Snapshot $snapshot);
+
+    public function make($class_name);
 }

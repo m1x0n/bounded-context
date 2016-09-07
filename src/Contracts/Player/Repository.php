@@ -1,20 +1,18 @@
 <?php namespace BoundedContext\Contracts\Player;
 
-use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
+use BoundedContext\Player\Snapshot\ClassName;
 
 interface Repository
 {
     /**
-     * @param Identifier $id
+     * @param ClassName $class_name
      * @return Player
      */
-
-    public function get(Identifier $id);
+    public function get(ClassName $class_name);
 
     /**
      * @param Player $player
      * @return void
      */
-
     public function save(Player $player);
 }

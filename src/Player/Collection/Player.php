@@ -6,22 +6,22 @@ use BoundedContext\Contracts\Player\Repository;
 class Player implements \BoundedContext\Contracts\Player\Player
 {
     protected $player_repository;
-    protected $player_identifiers;
+    protected $player_classes;
 
     public function __construct(
         Repository $player_repository,
-        Collection $player_identifiers
+        Collection $player_classes
     )
     {
         $this->player_repository = $player_repository;
-        $this->player_identifiers = $player_identifiers;
+        $this->player_classes = $player_classes;
     }
 
     public function reset()
     {
-        foreach($this->player_identifiers as $player_identifier) {
+        foreach ($this->player_classes as $player_class) {
             try {
-                $player = $this->player_repository->get($player_identifier);
+                $player = $this->player_repository->get($player_class);
 
                 $player->reset();
 
@@ -35,11 +35,11 @@ class Player implements \BoundedContext\Contracts\Player\Player
 
     public function play($limit = 1000)
     {
-        foreach($this->player_identifiers as $player_identifier) {
+        foreach ($this->player_classes as $player_class) {
             try {
-                $player = $this->player_repository->get($player_identifier);
+                $player = $this->player_repository->get($player_class);
         
-                $player->play();
+                $player->play($limit);
 
                 $this->player_repository->save($player);
 

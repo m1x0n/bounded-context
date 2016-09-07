@@ -1,12 +1,17 @@
 <?php namespace BoundedContext\Contracts\Player\Snapshot;
 
-use BoundedContext\Contracts\Core\Identifiable;
+use EventSourced\ValueObject\Contracts\ValueObject;
 use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
 
-interface Snapshot extends Identifiable, \BoundedContext\Contracts\Snapshot\Snapshot
+interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
 {
+    /**
+     * @return ValueObject
+     */
+    public function class_name();
+
     /**
      * Returns the last id of this Snapshot.
      *

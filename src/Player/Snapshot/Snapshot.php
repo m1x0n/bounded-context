@@ -9,18 +9,18 @@ use EventSourced\ValueObject\ValueObject\Integer as Version;
 
 class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Player\Snapshot\Snapshot
 {
-    public $id;
     public $last_id;
+    private $class_name;
 
     public function __construct(
-        Identifier $id,
+        ClassName $class_name,
         Version $version,
         DateTime $occurred_at,
         Identifier $last_id
     )
     {
         parent::__construct($version, $occurred_at);
-        $this->id = $id;
+        $this->class_name = $class_name;
         $this->last_id = $last_id;
     }
 
@@ -35,7 +35,7 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
     )
     {
         return new Snapshot(
-            $this->id,
+            $this->class_name,
             $this->version->reset(),
             $datetime_generator->now(),
             $identifier_generator->null()
@@ -48,7 +48,7 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
     )
     {
         return new Snapshot(
-            $this->id,
+            $this->class_name,
             $this->version,
             $datetime_generator->now(),
             $next_id
@@ -61,16 +61,29 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
     )
     {
         return new Snapshot(
-            $this->id,
+            $this->class_name,
             $this->version->increment(),
             $datetime_generator->now(),
             $next_id
         );
     }
 
-    public function id()
+    public function class_name()
     {
-        return $this->id;
+        return $this->class_name;
     }
 
+    public static function make(
+        ClassName $class_name,
+        IdentifierGenerator $identifier_generator,
+        DateTimeGenerator $datetime_generator
+    )
+    {
+        return new Snapshot(
+            $class_name,
+            new Version(1),
+            $datetime_generator->now(),
+            $identifier_generator->null()
+        );
+    }
 }
