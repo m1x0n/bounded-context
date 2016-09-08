@@ -67,6 +67,11 @@ abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Ag
         return $this->state;
     }
 
+    public function projection()
+    {
+        return $this->state->queryable();
+    }
+
     public function changes()
     {
         return $this->changes;
