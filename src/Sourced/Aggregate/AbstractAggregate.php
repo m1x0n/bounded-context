@@ -42,13 +42,20 @@ abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Ag
         $this->mutate($command);
     }
 
-    protected function apply($event_class, ...$parameters)
+    protected function apply($domain_event, ...$parameters)
     {
-        $aggregate_id_and_parameters = array_merge([$this->state()->aggregate_id()], $parameters);
-        $domain_event = new $event_class(...$aggregate_id_and_parameters);
+        if (is_string($domain_event)) {
+            $domain_event = $this->make_domain_event($domain_event, $parameters);
+        }
         $this->state->apply($domain_event);
         $loggable_event = $this->make_loggable_event($domain_event);
         $this->changes->append($loggable_event);
+    }
+
+    private function make_domain_event($event_class, $parameters)
+    {
+        $aggregate_id_and_parameters = array_merge([$this->state()->aggregate_id()], $parameters);
+        return new $event_class(...$aggregate_id_and_parameters);
     }
     
     private function make_loggable_event($domain_event)
