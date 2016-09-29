@@ -20,11 +20,13 @@ abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Ag
     protected $type;
     protected $check;
     protected $id_generator;
+    protected $projection_factory;
 
     public function __construct(
         TypeFactory $type_factory,
         Factory $invariant_factory, 
         Generator\Identifier $id_generator,
+        Projection\Factory $projection_factory,
         State $state
     )
     {
@@ -34,6 +36,7 @@ abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Ag
         $this->type = $type_factory->aggregate_class(get_called_class());
         $this->check = new Check($invariant_factory, $state);
         $this->id_generator = $id_generator;
+        $this->projection_factory = $projection_factory;
     }
 
     public function handle(Command $command)
@@ -87,5 +90,10 @@ abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Ag
     public function flush()
     {
         $this->changes = new Collection();
+    }
+
+    protected function domainProjection($projection_interface)
+    {
+        return $this->projection_factory->fromInterface($projection_interface);
     }
 }
