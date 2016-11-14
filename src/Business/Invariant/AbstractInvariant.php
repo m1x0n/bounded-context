@@ -8,6 +8,7 @@ abstract class AbstractInvariant implements Invariant
 {
     protected $queryable;
     protected $assumptions;
+    protected $error_message;
 
     private $is_invariant;
 
@@ -60,15 +61,8 @@ abstract class AbstractInvariant implements Invariant
             ($this->satisfier($this->queryable) && !$this->is_invariant)
         )
         {
-            throw new Exception("Invariant broken: ".get_called_class());
-
-            /*
-             * Namespace of Class : String
-             * Class Name : String
-             * Queryable : Queryable
-             * Is a Not Invariant? : Boolean
-             * Parameters : Array
-             */
+            $error_message = $this->error_message ?: "Invariant broken: ".get_called_class();
+            throw new Exception($error_message);
         }
     }
 }
