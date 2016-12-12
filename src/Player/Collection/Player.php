@@ -20,32 +20,18 @@ class Player implements \BoundedContext\Contracts\Player\Player
     public function reset()
     {
         foreach ($this->player_classes as $player_class) {
-            try {
-                $player = $this->player_repository->get($player_class);
-
-                $player->reset();
-
-                $this->player_repository->save($player);
-
-            } catch(\Exception $e) {
-                dd($e);
-            }
+            $player = $this->player_repository->get($player_class);
+            $player->reset();
+            $this->player_repository->save($player);
         }
     }
 
     public function play($limit = 1000)
     {
         foreach ($this->player_classes as $player_class) {
-            try {
-                $player = $this->player_repository->get($player_class);
-        
-                $player->play($limit);
-
-                $this->player_repository->save($player);
-
-            } catch(\Exception $e) {
-                dd($e);
-            }
+            $player = $this->player_repository->get($player_class);
+            $player->play($limit);
+            $this->player_repository->save($player);
         }
     }
 
