@@ -34,7 +34,7 @@ class SnapshotStream implements Stream
         return new Snapshot(
             new Uuid($popo->id),
             new Integer_($popo->version),
-            new DateTime($popo->occured_at),
+            new DateTime($popo->occurred_at),
             new Event\Type($popo->type),
             new Uuid($popo->command_id),
             new Uuid($popo->aggregate_id),

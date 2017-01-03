@@ -46,7 +46,7 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
                     'command_id' => 'd675b814-a202-407b-bc41-b5365efe190d',
                     'type' => 'test.snapshot.stream.make',
                     'aggregate_type' => 'test.snapshot.stream',
-                    'occured_at' => '2017-01-01 00:00:00',
+                    'occurred_at' => '2017-01-01 00:00:00',
                     'version' => 1,
                     'event' => (object)['a'=>'b']
                 ],
