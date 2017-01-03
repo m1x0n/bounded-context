@@ -2,48 +2,71 @@
 
 use BoundedContext\Contracts\Sourced\Stream\Stream;
 
-
 class UpgradedStream implements Stream
 {
     private $stream;
     private $upgrader;
 
-    private $upgraded;
+    private $index = 0;
+    private $upgraded_events = [];
 
     public function __construct(Stream $stream, $upgrader)
     {
         $this->stream = $stream;
         $this->upgrader = $upgrader;
+
+        $this->next();
     }
 
     public function current()
     {
-        $event = $this->stream->next();
-
-        if (!$event) {
-            return null;
-        }
-
-        $this->upgraded = $this->upgrader->upgrade($event);
+        return $this->upgraded_events[$this->index];
     }
 
     public function next()
     {
+        $this->index++;
 
+        if (!$this->valid()) {
+            $this->loadUpgradedEvents();
+        }
     }
 
-    public function key()
+    private function loadUpgradedEvents()
     {
-        // TODO: Implement key() method.
+        $this->index = 0;
+        $this->upgraded_events = [];
+        while ($this->stream->valid()) {
+            $event = $this->stream->current();
+            $this->stream->next();
+
+            if ($event == null) {
+                return;
+            }
+
+            $this->upgraded_events = $this->upgrader->upgrade($event);
+            if (isset($this->upgraded_events[$this->index])) {
+                return;
+            }
+        }
     }
 
     public function valid()
     {
-        // TODO: Implement valid() method.
+        return isset($this->upgraded_events[$this->index]);
+    }
+
+    /**
+        The below functions are not needed for foreach
+    **/
+
+    public function key()
+    {
+        return $this->index;
     }
 
     public function rewind()
     {
-        // TODO: Implement rewind() method.
+        $this->index = 0;
     }
 }

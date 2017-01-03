@@ -55,7 +55,7 @@ class SnapshotStream implements Stream
 
     public function valid()
     {
-        return $this->stream->current();
+        return $this->stream->valid();
     }
 
     public function rewind()

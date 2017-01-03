@@ -17,7 +17,7 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
      */
     public function test_conversion($popo, $snapshot)
     {
-        $stream = new SnapshotStream( new FakeStream($popo) );
+        $stream = new SnapshotStream( $this->fakeStream($popo) );
 
         $this->assertEquals($snapshot, $stream->current());
     }
@@ -26,7 +26,7 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
     {
         $provider = $this->eventProvider();
         $popo = reset($provider)[0];
-        $stream = new SnapshotStream( new FakeStream($popo) );
+        $stream = new SnapshotStream( $this->fakeStream($popo) );
 
         $count = 0;
         foreach ($stream as $snapshot) {
@@ -64,39 +64,42 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
             'null is returned as null' => [null, null],
         ];
     }
-}
 
-class FakeStream implements Stream
-{
-    private $events;
-
-    function __construct($event)
+    private function fakeStream($popo)
     {
-        $this->events = [$event];
-    }
+        return new Class($popo) implements Stream
+        {
+            private $events;
 
-    public function current()
-    {
-        return current($this->events);
-    }
+            function __construct($event)
+            {
+                $this->events = [$event];
+            }
 
-    public function next()
-    {
-        return next($this->events);
-    }
+            public function current()
+            {
+                return current($this->events);
+            }
 
-    public function key()
-    {
-        // TODO: Implement key() method.
-    }
+            public function next()
+            {
+                return next($this->events);
+            }
 
-    public function valid()
-    {
-        // TODO: Implement valid() method.
-    }
+            public function key()
+            {
+                // TODO: Implement key() method.
+            }
 
-    public function rewind()
-    {
-        // TODO: Implement rewind() method.
+            public function valid()
+            {
+                return current($this->events);
+            }
+
+            public function rewind()
+            {
+                // TODO: Implement rewind() method.
+            }
+        };
     }
 }

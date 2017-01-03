@@ -24,38 +24,40 @@ class DynamicStreamTest extends PHPUnit_Framework_TestCase
     {
         return new Class() implements Stream {
 
+            private $index = 0;
             private $items = ['a','b','c'];
 
             public function current()
             {
-                return current($this->items);
+                return $this->items[$this->key()];
             }
 
             public function next()
             {
-                return next($this->items);
+                $this->index++;
             }
 
             public function key()
             {
-                return key($this->items);
+                return $this->index;
             }
 
             public function valid()
             {
-                // TODO: Implement valid() method.
+                return isset($this->items[$this->key()]);
             }
 
             public function rewind()
             {
-                $this->rewind($this->items);
+                $this->index = 0;
             }
         };
     }
 
     private function fakeUpgrader()
     {
-        return new Class() {
+        return new Class()
+        {
             public function upgrade($item)
             {
                 if ($item == 'a') {
