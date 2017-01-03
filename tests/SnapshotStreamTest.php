@@ -15,14 +15,25 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider eventProvider
      */
-    public function testNext($popo, $snapshot)
+    public function test_conversion($popo, $snapshot)
     {
-        $popo_stream = $this->prophesize(Stream::class);
-        $popo_stream->current()->willReturn($popo);
-
-        $stream = new SnapshotStream($popo_stream->reveal());
+        $stream = new SnapshotStream( new FakeStream($popo) );
 
         $this->assertEquals($snapshot, $stream->current());
+    }
+
+    public function test_can_foreach()
+    {
+        $provider = $this->eventProvider();
+        $popo = reset($provider)[0];
+        $stream = new SnapshotStream( new FakeStream($popo) );
+
+        $count = 0;
+        foreach ($stream as $snapshot) {
+            $count++;
+        }
+
+        $this->assertEquals(1, $count, "Number of elements differ from expected");
     }
 
     public function eventProvider()
@@ -53,5 +64,39 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
             'null is returned as null' => [null, null],
         ];
     }
+}
 
+class FakeStream implements Stream
+{
+    private $events;
+
+    function __construct($event)
+    {
+        $this->events = [$event];
+    }
+
+    public function current()
+    {
+        return current($this->events);
+    }
+
+    public function next()
+    {
+        return next($this->events);
+    }
+
+    public function key()
+    {
+        // TODO: Implement key() method.
+    }
+
+    public function valid()
+    {
+        // TODO: Implement valid() method.
+    }
+
+    public function rewind()
+    {
+        // TODO: Implement rewind() method.
+    }
 }

@@ -1,17 +1,10 @@
 <?php namespace BoundedContext\Sourced\Stream;
 
 use BoundedContext\Collection\Collection;
-use BoundedContext\Schema\Schema;
-use BoundedContext\Contracts\Event\Snapshot\Factory as EventSnapshotFactory;
 use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 abstract class AbstractStream
 {
-    /**
-     * @var EventSnapshotFactory
-     */
-    protected $event_snapshot_factory;
-
     protected $limit;
     protected $chunk_size;
    
@@ -26,13 +19,10 @@ abstract class AbstractStream
     protected $event_snapshots;
 
     public function __construct(
-        EventSnapshotFactory $event_snapshot_factory,
         Integer_ $limit,
         Integer_ $chunk_size
     )
     {
-        $this->event_snapshot_factory = $event_snapshot_factory;
-
         $this->limit = $limit;
         $this->chunk_size = $chunk_size;
 
@@ -57,15 +47,8 @@ abstract class AbstractStream
         $event_snapshot_schemas = $this->get_next_chunk();
         
         foreach ($event_snapshot_schemas as $event_snapshot_schema) {
-            $event_snapshot = $this->event_snapshot_factory->schema(
-                new Schema(
-                    json_decode(
-                        $event_snapshot_schema->snapshot,
-                        true
-                    )
-                )
-            );
-            $this->event_snapshots->append($event_snapshot);
+            $snapshot_popo = json_decode($event_snapshot_schema->snapshot);
+            $this->event_snapshots->append($snapshot_popo);
         }
         
         $this->set_offset($event_snapshot_schemas);

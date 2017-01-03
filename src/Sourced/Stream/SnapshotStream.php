@@ -45,21 +45,21 @@ class SnapshotStream implements Stream
 
     public function next()
     {
-        $this->stream->next();
+        return $this->stream->next();
     }
 
     public function key()
     {
-        // TODO: Implement key() method.
+        return $this->stream->key();
     }
 
     public function valid()
     {
-        // TODO: Implement valid() method.
+        return $this->stream->current();
     }
 
     public function rewind()
     {
-        // TODO: Implement rewind() method.
+        //$this->stream->rewind();
     }
 }
