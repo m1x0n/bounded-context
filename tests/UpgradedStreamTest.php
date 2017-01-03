@@ -2,8 +2,9 @@
 
 use BoundedContext\Contracts\Sourced\Stream\Stream;
 use BoundedContext\Sourced\Stream\UpgradedStream;
+use BoundedContext\Sourced\Stream\Upgrader;
 
-class DynamicStreamTest extends PHPUnit_Framework_TestCase
+class UpgradedStreamTest extends PHPUnit_Framework_TestCase
 {
     public function test_streaming_through_an_upgrader()
     {
@@ -56,9 +57,9 @@ class DynamicStreamTest extends PHPUnit_Framework_TestCase
 
     private function fakeUpgrader()
     {
-        return new Class()
+        return new Class() implements Upgrader
         {
-            public function upgrade($item)
+            public function upgrade($item): array
             {
                 if ($item == 'a') {
                     return [1,2];

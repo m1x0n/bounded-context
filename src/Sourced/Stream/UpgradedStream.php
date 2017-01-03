@@ -10,7 +10,7 @@ class UpgradedStream implements Stream
     private $index = 0;
     private $upgraded_events = [];
 
-    public function __construct(Stream $stream, $upgrader)
+    public function __construct(Stream $stream, Upgrader $upgrader)
     {
         $this->stream = $stream;
         $this->upgrader = $upgrader;
