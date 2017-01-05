@@ -45,7 +45,7 @@ class SnapshotStream implements Stream
 
     public function next()
     {
-        return $this->stream->next();
+        $this->stream->next();
     }
 
     public function key()
