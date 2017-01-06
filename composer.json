@@ -29,5 +29,6 @@
       "BoundedContext\\": "src/",
       "BoundedContext\\Examples\\": "examples/"
     }
-  }
+  },
+  "minimum-stability": "dev"
 }
