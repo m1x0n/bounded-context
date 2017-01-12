@@ -1,10 +1,13 @@
 <?php namespace BoundedContext\Event;
 
-class AbstractEvent implements \BoundedContext\Contracts\Event\DomainEvent
+use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
+use EventSourced\ValueObject\ValueObject\Integer;
+
+abstract class AbstractEvent extends AbstractComposite
 {
 
     public function version()
     {
-        return 1;
+        return new Integer(1);
     }
 }
