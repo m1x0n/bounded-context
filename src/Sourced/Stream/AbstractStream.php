@@ -7,7 +7,7 @@ abstract class AbstractStream
 {
     protected $limit;
     protected $chunk_size;
-   
+
     /**
      * @var Integer_
      */
@@ -45,30 +45,22 @@ abstract class AbstractStream
         $this->event_snapshots = new Collection();
 
         $event_snapshot_schemas = $this->get_next_chunk();
-        
+
         foreach ($event_snapshot_schemas as $event_snapshot_schema) {
             $snapshot_popo = json_decode($event_snapshot_schema->snapshot);
             $this->event_snapshots->append($snapshot_popo);
         }
-        
+
         $this->set_offset($event_snapshot_schemas);
     }
-    
+
     abstract protected function get_next_chunk();
-    
+
     abstract protected function set_offset(array $event_snapshot_rows);
 
     protected function is_unlimited()
     {
         return ($this->limit->equals(new Integer_(0)));
-    }
-
-    protected function has_more_chunks()
-    {
-        return (
-            $this->event_snapshots->count()->value() <
-            $this->chunk_size->value()
-        );
     }
 
     public function current()
@@ -80,10 +72,7 @@ abstract class AbstractStream
     {
         $this->event_snapshots->next();
 
-        if(
-            !$this->event_snapshots->valid() &&
-            $this->has_more_chunks()
-        )
+        if(!$this->event_snapshots->valid())
         {
             $this->fetch();
         }
