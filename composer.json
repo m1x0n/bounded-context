@@ -3,7 +3,7 @@
   "description": "A framework for event-sourced bounded contexts.",
   "license": "MIT",
   "require": {
-    "dql/valueobjects": "4.1.*",
+    "dql/valueobjects": "~4.1",
     "php": ">=5.4.0",
     "ramsey/uuid": "~2.8"
   },
