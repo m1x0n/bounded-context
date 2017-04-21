@@ -62,7 +62,7 @@ class Collection implements CollectionContract
 
     public function has_next()
     {
-        return isset($this->items[$this->key]);
+        return isset($this->items[$this->key + 1]);
     }
 
     public function next()
