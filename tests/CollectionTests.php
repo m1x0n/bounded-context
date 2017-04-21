@@ -4,7 +4,9 @@ use BoundedContext\Collection\Collection;
 
 class CollectionTests extends PHPUnit_Framework_TestCase
 {
-
+    /**
+     * @var Collection
+     */
     private $collection;
 
     public function setup()
@@ -18,14 +20,14 @@ class CollectionTests extends PHPUnit_Framework_TestCase
 
     public function test_count()
     {
-        $this->assertEquals($this->collection->count(), 3);
+        $this->assertEquals($this->collection->count()->value(), 3);
     }
 
     public function test_reset()
     {
-        $this->assertEquals($this->collection->count(), 3);
+        $this->assertEquals($this->collection->count()->value(), 3);
         $this->collection->reset();
-        $this->assertEquals($this->collection->count(), 0);
+        $this->assertEquals($this->collection->count()->value(), 0);
     }
 
     public function test_rewind()
@@ -33,25 +35,25 @@ class CollectionTests extends PHPUnit_Framework_TestCase
         $this->collection->next();
         $this->collection->next();
 
-        $this->assertEquals($this->collection->current(), 'C');
+        $this->assertEquals($this->collection->current()->value(), 'C');
 
         $this->collection->rewind();
 
-        $this->assertEquals($this->collection->current(), 'A');
+        $this->assertEquals($this->collection->current()->value(), 'A');
     }
 
     public function test_ordering()
     {
-        $this->assertEquals($this->collection->current(), 'A');
+        $this->assertEquals($this->collection->current()->value(), 'A');
 
         $this->assertTrue($this->collection->has_next());
         $this->collection->next();
-        $this->assertEquals($this->collection->current(), 'B');
+        $this->assertEquals($this->collection->current()->value(), 'B');
 
         $this->assertTrue($this->collection->has_next());
         $this->collection->next();
-        $this->assertEquals($this->collection->current(), 'C');
-
+        $this->assertEquals($this->collection->current()->value(), 'C');
+        
         $this->assertFalse($this->collection->has_next());
     }
 
@@ -67,7 +69,7 @@ class CollectionTests extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->collection->has_next());
         $this->collection->next();
 
-        $this->assertEquals($this->collection->current(), 'D');
+        $this->assertEquals($this->collection->current()->value(), 'D');
         $this->assertFalse($this->collection->has_next());
     }
 
@@ -82,7 +84,7 @@ class CollectionTests extends PHPUnit_Framework_TestCase
         );
 
         $this->assertFalse($this->collection->has_next());
-        $this->assertEquals($this->collection->current(), 'D');
+        $this->assertEquals($this->collection->current()->value(), 'D');
     }
 
     public function test_append_after_playthrough()
@@ -100,6 +102,6 @@ class CollectionTests extends PHPUnit_Framework_TestCase
         $this->collection->next();
 
         $this->assertFalse($this->collection->has_next());
-        $this->assertEquals($this->collection->current(), 'D');
+        $this->assertEquals($this->collection->current()->value(), 'D');
     }
 }

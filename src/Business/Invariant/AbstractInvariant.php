@@ -8,7 +8,8 @@ abstract class AbstractInvariant implements Invariant
 {
     protected $queryable;
     protected $assumptions;
-    protected $error_message;
+    protected $error_message_positive;
+    protected $error_message_negative;
 
     private $is_invariant;
 
@@ -56,12 +57,13 @@ abstract class AbstractInvariant implements Invariant
 
     public function asserts()
     {
-        if(
-            (!$this->satisfier($this->queryable) && $this->is_invariant) ||
-            ($this->satisfier($this->queryable) && !$this->is_invariant)
-        )
-        {
-            $error_message = $this->error_message ?: "Invariant broken: ".get_called_class();
+        if (!$this->satisfier($this->queryable) && $this->is_invariant) {
+            $error_message = $this->error_message_negative ?: "Invariant broken: ".get_called_class();
+            throw new Exception($error_message);
+        }
+
+        if ($this->satisfier($this->queryable) && !$this->is_invariant) {
+            $error_message = $this->error_message_positive ?: "Invariant broken: ".get_called_class();
             throw new Exception($error_message);
         }
     }
