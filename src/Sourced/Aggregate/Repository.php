@@ -93,6 +93,7 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
     
     private function should_snapshot(Aggregate $aggregate)
     {
+        return false;
         $new_version = $aggregate->state()->version();
         $old_version = $new_version->subtract($aggregate->changes()->count());
         
