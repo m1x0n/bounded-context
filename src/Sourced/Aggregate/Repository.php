@@ -14,6 +14,7 @@ use BoundedContext\Contracts\Sourced\Aggregate\Stream\Builder as AggregateStream
 use BoundedContext\Contracts\Sourced\Aggregate\State\Factory as StateFactory;
 use BoundedContext\Contracts\Sourced\Aggregate\State\Snapshot\Factory as StateSnapshotFactory;
 use BoundedContext\Contracts\Sourced\Aggregate\State\Snapshot\Repository as StateSnapshotRepository;
+use EventSourced\ValueObject\ValueObject\Uuid;
 
 class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Repository
 {
@@ -72,6 +73,30 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
 
         return $this->aggregate_factory->state($state);
     }
+
+    public function fetch($aggregate_class, Uuid $id)
+    {
+        $state_snapshot = $this->state_snapshot_repository->ids(
+            $id,
+            $this->aggregate_type_factory->aggregate_class($aggregate_class)
+        );
+
+        $state = $this->state_factory
+            ->aggregateClass($aggregate_class)
+            ->snapshot( $state_snapshot );
+
+        $event_snapshot_stream = $this->aggregate_stream_builder
+            ->ids($state->aggregate_id(), $state->aggregate_type())
+            ->after($state->version())
+            ->stream();
+
+        foreach ($event_snapshot_stream as $event_snapshot) {
+            $event = $this->event_factory->snapshot($event_snapshot);
+            $state->apply($event);
+        }
+
+        return $this->aggregate_factory->state($state);
+    }
     
     private function snapshot(Command $command)
     {
@@ -93,7 +118,6 @@ class Repository implements \BoundedContext\Contracts\Sourced\Aggregate\Reposito
     
     private function should_snapshot(Aggregate $aggregate)
     {
-        return false;
         $new_version = $aggregate->state()->version();
         $old_version = $new_version->subtract($aggregate->changes()->count());
         

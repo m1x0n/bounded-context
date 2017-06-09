@@ -7,13 +7,20 @@ interface Factory
 {
     /**
      * Decorator.
-     * Sets the Command associated with the State.
+     * Sets the Command associated with the State. Must be called before `snapshot`.
      *
      * @param Command $command
      * @return Factory
      */
-
     public function with(Command $command);
+
+    /**
+     * Sets the aggregate class associated with the State. Must be called before `snapshot`.
+     *
+     * @param string $class
+     * @return Factory
+     */
+    public function aggregateClass($class);
 
     /**
      * Returns a State from a Snapshot.
@@ -21,6 +28,5 @@ interface Factory
      * @param Snapshot $snapshot
      * @return State
      */
-
     public function snapshot(Snapshot $snapshot);
 }

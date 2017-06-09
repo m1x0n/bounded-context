@@ -8,6 +8,7 @@ use BoundedContext\Contracts\Sourced\Aggregate\State\State;
 use BoundedContext\Command\Handling;
 use BoundedContext\Collection\Collection;
 use BoundedContext\Event\Event;
+use EventSourced\ValueObject\ValueObject\Uuid;
 
 abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Aggregate\Aggregate
 {
@@ -65,7 +66,7 @@ abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Ag
     {
         return new Event(
             $this->id_generator->generate(),
-            $this->current_command->id(), 
+            Uuid::generate(),
             $this->state->aggregate_type(),
             $this->state->aggregate_id(), 
             $domain_event
@@ -95,5 +96,10 @@ abstract class AbstractAggregate implements \BoundedContext\Contracts\Sourced\Ag
     protected function domainProjection($projection_interface)
     {
         return $this->projection_factory->fromInterface($projection_interface);
+    }
+
+    protected function id()
+    {
+        return $this->state->aggregate_id();
     }
 }
