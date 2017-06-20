@@ -4,6 +4,7 @@ use BoundedContext\Contracts\Player\Player;
 use BoundedContext\Contracts\Player\Snapshot\Repository as SnapshotRepository;
 use BoundedContext\Contracts\Player\Factory as PlayerFactory;
 use BoundedContext\Player\Snapshot\ClassName;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 class Repository implements \BoundedContext\Contracts\Player\Repository
 {
@@ -34,5 +35,19 @@ class Repository implements \BoundedContext\Contracts\Player\Repository
     public function save(Player $player)
     {
         $this->snapshot_repository->save($player->snapshot());
+    }
+
+    public function hasVersionChanged(ClassName $class_name)
+    {
+        $snapshot = $this->snapshot_repository->get($class_name);
+
+        $active_version = new Integer_(1);
+        if ($snapshot) {
+            $active_version = $snapshot->version();
+        }
+
+        $player = $this->player_factory->make($class_name);
+
+        return $active_version->value() != $player->version();
     }
 }

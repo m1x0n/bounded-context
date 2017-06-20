@@ -13,4 +13,9 @@ interface Player extends Resetable, Playable
      */
 
     public function snapshot();
+
+    /**
+     * @return int
+     */
+    public function version();
 }

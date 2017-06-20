@@ -34,12 +34,17 @@ abstract class AbstractPlayer implements Player
     {
         $this->snapshot = $this->snapshot->reset(
             $this->identifier_generator,
-            $this->datetime_generator
+            $this->datetime_generator,
+            new Integer($this->version())
         );
     }
 
     public function play($limit = 1000)
     {
+        if ($this->snapshot()->version()->value() != $this->version()) {
+            throw new \Exception("The snapshot and projector have different versions, playing would cause potential data corruption. This exception only occurs if the players are used incorrectly.");
+        }
+
         $snapshot_stream = $this->log
             ->builder()
             ->after($this->snapshot()->last_id())
@@ -73,5 +78,25 @@ abstract class AbstractPlayer implements Player
     public function snapshot()
     {
         return $this->snapshot;
+    }
+
+    /**
+     * @return int
+     */
+    public function version()
+    {
+        $player_class = get_called_class();
+
+        $path = explode("\\", $player_class);
+
+        $path[count($path)-1] = "Version";
+
+        $version_class = implode("\\", $path);
+
+        if (!class_exists($version_class)) {
+            return 1;
+        }
+
+        return $version_class::VALUE;
     }
 }
