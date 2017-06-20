@@ -39,4 +39,14 @@ class Player implements \BoundedContext\Contracts\Player\Player
     {
         throw new \Exception("Collection Player Snapshots are not supported.");
     }
+
+    public function version()
+    {
+        throw new \Exception("Collection Player versions are not supported.");
+    }
+
+    public function count()
+    {
+        return $this->player_classes->count()->value();
+    }
 }

@@ -2,7 +2,7 @@
 
 use EventSourced\ValueObject\Contracts\ValueObject\DateTime;
 use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
-use EventSourced\ValueObject\ValueObject\Integer as Version;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 abstract class AbstractSnapshot extends AbstractComposite
 {
@@ -10,7 +10,7 @@ abstract class AbstractSnapshot extends AbstractComposite
     protected $occurred_at;
 
     public function __construct(
-        Version $version,
+        Integer_ $version,
         DateTime $occurred_at
     )
     {

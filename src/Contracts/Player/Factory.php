@@ -12,5 +12,10 @@ interface Factory
      */
     public function snapshot(Snapshot $snapshot);
 
+    /**
+     * Returns a Player by a Classname.
+     *
+     * @return Player $player
+     */
     public function make($class_name);
 }

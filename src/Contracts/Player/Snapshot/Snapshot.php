@@ -4,6 +4,7 @@ use EventSourced\ValueObject\Contracts\ValueObject;
 use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Generator\Identifier as IdentifierGenerator;
+use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 
 interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
 {
@@ -21,6 +22,11 @@ interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
     public function last_id();
 
     /**
+     * @return Integer_
+     */
+    public function updateCount();
+
+    /**
      * Returns a new Snapshot after resetting it back to its default state.
      *
      * @param IdentifierGenerator $identifier_generator
@@ -28,10 +34,10 @@ interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
      *
      * @return Snapshot
      */
-
     public function reset(
         IdentifierGenerator $identifier_generator,
-        DateTimeGenerator $datetime_generator
+        DateTimeGenerator $datetime_generator,
+        Integer_ $version
     );
 
     /**

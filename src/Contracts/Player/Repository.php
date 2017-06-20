@@ -15,4 +15,6 @@ interface Repository
      * @return void
      */
     public function save(Player $player);
+
+    public function hasVersionChanged(ClassName $class_name);
 }
