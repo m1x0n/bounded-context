@@ -41,8 +41,8 @@ abstract class AbstractPlayer implements Player
 
     public function play($limit = 1000)
     {
-        if ($this->snapshot()->version()->value() != $this->version()) {
-            throw new \Exception("The snapshot and projector have different versions, playing would cause potential data corruption. This exception only occurs if the players are used incorrectly.");
+        if ($this->snapshot()->playerVersion()->value() != static::version()) {
+            throw new \Exception("The snapshot (".$this->snapshot()->version()->value().") and projector (".$this->version().") for '".get_called_class()."' have different versions, playing would cause potential data corruption. This exception only occurs if the players are used incorrectly.");
         }
 
         $snapshot_stream = $this->log
@@ -83,7 +83,7 @@ abstract class AbstractPlayer implements Player
     /**
      * @return int
      */
-    public function version()
+    public static function version()
     {
         $player_class = get_called_class();
 
