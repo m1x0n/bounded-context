@@ -43,7 +43,7 @@ class Repository implements \BoundedContext\Contracts\Player\Repository
 
         $active_version = new Integer_(1);
         if ($snapshot) {
-            $active_version = $snapshot->version();
+            $active_version = $snapshot->playerVersion();
         }
 
         $player = $this->player_factory->make($class_name);

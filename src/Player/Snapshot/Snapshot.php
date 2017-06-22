@@ -11,19 +11,19 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
 {
     public $last_id;
     protected $class_name;
-    protected $update_count;
+    protected $player_version;
 
     public function __construct(
         ClassName $class_name,
         Integer_ $version,
-        Integer_ $update_count,
+        Integer_ $player_version,
         DateTime $occurred_at,
         Identifier $last_id
     )
     {
         parent::__construct($version, $occurred_at);
         $this->class_name = $class_name;
-        $this->update_count = $update_count;
+        $this->player_version = $player_version;
         $this->last_id = $last_id;
     }
 
@@ -35,13 +35,13 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
     public function reset(
         IdentifierGenerator $identifier_generator,
         DateTimeGenerator $datetime_generator,
-        Integer_ $version
+        Integer_ $player_version
     )
     {
         return new Snapshot(
             $this->class_name,
-            $version,
-            $this->update_count->reset(),
+            $this->version->reset(),
+            $player_version,
             $datetime_generator->now(),
             $identifier_generator->null()
         );
@@ -55,7 +55,7 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
         return new Snapshot(
             $this->class_name,
             $this->version,
-            $this->update_count,
+            $this->player_version,
             $datetime_generator->now(),
             $next_id
         );
@@ -68,8 +68,8 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
     {
         return new Snapshot(
             $this->class_name,
-            $this->version,
-            $this->update_count->increment(),
+            $this->version->increment(),
+            $this->player_version,
             $datetime_generator->now(),
             $next_id
         );
@@ -95,8 +95,8 @@ class Snapshot extends AbstractSnapshot implements \BoundedContext\Contracts\Pla
         );
     }
 
-    public function updateCount()
+    public function playerVersion()
     {
-        return $this->update_count;
+        return $this->player_version;
     }
 }

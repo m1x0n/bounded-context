@@ -2,6 +2,7 @@
 
 use BoundedContext\Contracts\Command\Command;
 use BoundedContext\Contracts\Sourced\Log;
+use EventSourced\ValueObject\ValueObject\Uuid;
 
 interface Repository {
 
@@ -12,6 +13,15 @@ interface Repository {
      * @return Aggregate
      */
     public function by(Command $command);
+
+    /**
+     * Returns an Aggregate for a Command.
+     *
+     * @param string $aggregate_class
+     * @param Uuid $id
+     * @return Aggregate
+     */
+    public function fetch($aggregate_class, Uuid $id);
 
     /**
      * Saves an Aggregate to the Repository.
