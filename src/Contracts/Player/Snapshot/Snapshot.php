@@ -24,7 +24,7 @@ interface Snapshot extends \BoundedContext\Contracts\Snapshot\Snapshot
     /**
      * @return Integer_
      */
-    public function updateCount();
+    public function playerVersion();
 
     /**
      * Returns a new Snapshot after resetting it back to its default state.

@@ -23,7 +23,7 @@ class Factory
         return new Snapshot(
             new ClassName($snapshot['class_name']),
             new Integer($snapshot['version']),
-            new Integer($snapshot['update_count']),
+            new Integer($snapshot['player_version']),
             $this->datetime_generator->string($snapshot['occurred_at']),
             $this->identifier_generator->string($snapshot['last_id'])
         );

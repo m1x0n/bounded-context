@@ -17,5 +17,5 @@ interface Player extends Resetable, Playable
     /**
      * @return int
      */
-    public function version();
+    public static function version();
 }

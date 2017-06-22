@@ -40,7 +40,7 @@ class Player implements \BoundedContext\Contracts\Player\Player
         throw new \Exception("Collection Player Snapshots are not supported.");
     }
 
-    public function version()
+    public static function version()
     {
         throw new \Exception("Collection Player versions are not supported.");
     }
