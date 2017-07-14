@@ -13,13 +13,4 @@ interface Factory
      */
 
     public function event(Event $event);
-
-    /**
-     * Returns a new Snapshot from a Schema.
-     *
-     * @param Schema $schema
-     * @return Snapshot $snapshot
-     */
-
-    public function schema(Schema $schema);
 }

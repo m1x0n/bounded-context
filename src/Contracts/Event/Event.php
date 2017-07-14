@@ -1,6 +1,7 @@
 <?php namespace BoundedContext\Contracts\Event;
 
 use BoundedContext\Contracts\Core\Identifiable;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 use EventSourced\ValueObject\Contracts\ValueObject;
 
 /**

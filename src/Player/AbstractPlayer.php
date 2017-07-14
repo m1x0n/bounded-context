@@ -50,7 +50,7 @@ abstract class AbstractPlayer implements Player
             ->after($this->snapshot()->last_id())
             ->limit(new Integer($limit))
             ->stream();
-                
+
         foreach($snapshot_stream as $snapshot) {
             $this->apply($snapshot);
         }
