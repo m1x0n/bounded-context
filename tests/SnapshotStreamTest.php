@@ -1,6 +1,8 @@
 <?php
 
+use BoundedContext\Contracts\Event\Snapshot\Transformer;
 use BoundedContext\Contracts\Sourced\Stream\Stream;
+use BoundedContext\Event;
 use BoundedContext\Event\AggregateType;
 use BoundedContext\Event\Snapshot\Snapshot;
 use BoundedContext\Schema\Schema;
@@ -8,9 +10,7 @@ use BoundedContext\Sourced\Stream\SnapshotStream;
 use EventSourced\ValueObject\ValueObject\Uuid;
 use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 use EventSourced\ValueObject\ValueObject\DateTime;
-use BoundedContext\Event;
 
-// Actor: Fix tests
 class SnapshotStreamTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -18,7 +18,7 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
      */
     public function test_conversion($popo, $snapshot)
     {
-        $stream = new SnapshotStream( $this->fakeStream($popo) );
+        $stream = new SnapshotStream($this->fakeTransformer(), $this->fakeStream($popo) );
 
         $this->assertEquals($snapshot, $stream->current());
     }
@@ -27,7 +27,7 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
     {
         $provider = $this->eventProvider();
         $popo = reset($provider)[0];
-        $stream = new SnapshotStream( $this->fakeStream($popo) );
+        $stream = new SnapshotStream($this->fakeTransformer(), $this->fakeStream($popo) );
 
         $count = 0;
         foreach ($stream as $snapshot) {
@@ -64,6 +64,40 @@ class SnapshotStreamTest extends PHPUnit_Framework_TestCase
             ],
             'null is returned as null' => [null, null],
         ];
+    }
+
+    private function fakeTransformer()
+    {
+        $provider = $this->eventProvider();
+
+        $popo = reset($provider)[0];
+        $snapshot = reset($provider)[1];
+
+        return new Class($popo, $snapshot) implements Transformer
+        {
+            private $popo;
+            private $snapshot;
+
+            public function __construct($popo, $snapshot)
+            {
+                $this->popo = $popo;
+                $this->snapshot = $snapshot;
+            }
+
+            public function fromEvent(\BoundedContext\Contracts\Event\Event $event){}
+
+            public function fromSchema(\BoundedContext\Contracts\Schema\Schema $schema){}
+
+            public function toPopo($snapshot){}
+
+            public function fromPopo($popo)
+            {
+                if ($popo == $this->popo) {
+                    return $this->snapshot;
+                }
+                return null;
+            }
+        };
     }
 
     private function fakeStream($popo)
