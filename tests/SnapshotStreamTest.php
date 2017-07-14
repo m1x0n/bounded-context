@@ -10,6 +10,7 @@ use EventSourced\ValueObject\ValueObject\Integer as Integer_;
 use EventSourced\ValueObject\ValueObject\DateTime;
 use BoundedContext\Event;
 
+// Actor: Fix tests
 class SnapshotStreamTest extends PHPUnit_Framework_TestCase
 {
     /**

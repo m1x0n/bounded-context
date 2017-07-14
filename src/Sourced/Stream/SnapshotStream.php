@@ -1,20 +1,16 @@
 <?php namespace BoundedContext\Sourced\Stream;
 
 use BoundedContext\Contracts\Sourced\Stream\Stream;
-use BoundedContext\Schema\Schema;
-use BoundedContext\Event\AggregateType;
-use BoundedContext\Event\Snapshot\Snapshot;
-use EventSourced\ValueObject\ValueObject\Uuid;
-use EventSourced\ValueObject\ValueObject\Integer as Integer_;
-use EventSourced\ValueObject\ValueObject\DateTime;
-use BoundedContext\Event;
+use BoundedContext\Contracts\Event\Snapshot;
 
 class SnapshotStream implements Stream
 {
+    private $snapshot_transformer;
     private $stream;
 
-    public function __construct(Stream $stream)
+    public function __construct(Snapshot\Transformer $snapshot_transformer, Stream $stream)
     {
+        $this->snapshot_transformer = $snapshot_transformer;
         $this->stream = $stream;
     }
 
@@ -31,16 +27,7 @@ class SnapshotStream implements Stream
 
     private function popo_to_event_snapshot($popo)
     {
-        return new Snapshot(
-            new Uuid($popo->id),
-            new Integer_($popo->version),
-            new DateTime($popo->occurred_at),
-            new Event\Type($popo->type),
-            new Uuid($popo->command_id),
-            new Uuid($popo->aggregate_id),
-            new AggregateType($popo->aggregate_type),
-            new Schema((array)$popo->event)
-        );
+        return $this->snapshot_transformer->fromPopo($popo);
     }
 
     public function next()
