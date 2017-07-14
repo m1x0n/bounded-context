@@ -3,7 +3,6 @@
 use BoundedContext\Contracts\Event\Event;
 use BoundedContext\Contracts\Generator\DateTime as DateTimeGenerator;
 use BoundedContext\Contracts\Generator\Identifier;
-use BoundedContext\Contracts\Schema\Schema;
 use BoundedContext\Contracts\Version\Factory as EventVersionFactory;
 use BoundedContext\Event\Type as EventType;
 use BoundedContext\Event\AggregateType;
@@ -50,20 +49,6 @@ class Transformer implements \BoundedContext\Contracts\Event\Snapshot\Transforme
             $event->aggregate_id(),
             $aggregate_type,
             new ConcreteSchema($serialized)
-        );
-    }
-
-    public function fromSchema(Schema $schema)
-    {
-        return new Snapshot(
-            $this->identifier_generator->string($schema->id),
-            new Integer_($schema->version),
-            $this->datetime_generator->string($schema->occurred_at),
-            new EventType($schema->type),
-            $this->identifier_generator->string($schema->command_id),
-            $this->identifier_generator->string($schema->aggregate_id),
-            new AggregateType($schema->aggregate_type),
-            new ConcreteSchema($schema->event)
         );
     }
 
